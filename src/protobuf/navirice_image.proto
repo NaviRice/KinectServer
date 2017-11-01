@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package navirice;
+
+message ImageSet {
+
+	message Image {
+		uint32 width = 1;
+		uint32 height = 2;
+		uint32 channels = 3;
+
+		enum DataType {
+			FLOAT = 0;
+			UBYTE = 1;		
+		}
+		DataType data_type = 4;
+		uint32 data_size = 5;
+		bytes data = 6;
+	}
+
+	uint64 count = 1;
+	Image RGB = 2;
+	Image Depth = 3;
+	Image IR = 4;
+
+}
+
+
+

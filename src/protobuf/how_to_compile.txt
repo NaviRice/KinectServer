@@ -1,0 +1,3 @@
+Run this command:
+
+protoc -I=. --cpp_out=. --python_out=. navirice_image.proto
