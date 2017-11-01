@@ -29,6 +29,8 @@ void navirice::ImageDistributionServer::send_images(int cli_sock, sockaddr_in cl
 		std::cout << this->get_prompt() + ansi::red("WRITE ERROR") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif	
 	}
+
+	data.clear();
 }
 
 void navirice::ImageDistributionServer::server_connection_listener(){
@@ -130,10 +132,8 @@ void navirice::ImageDistributionServer::set_new_images(Image* new_color_image, I
 	this->images.set_allocated_rgb(naviriceImageToProtobuf(new_color_image));
 	this->images.set_allocated_depth(naviriceImageToProtobuf(new_depth_image));
 	this->images.set_allocated_ir(naviriceImageToProtobuf(new_ir_image));
-
 #ifdef PRINT_LOG
 	std::cout << get_prompt() + "[" + ansi::yellow("setting new image") + "] -> Buffer Size: " + std::to_string(this->images.ByteSize()) + "\n"; 
 #endif
-
 	this->current_image_mutex.unlock();
 }

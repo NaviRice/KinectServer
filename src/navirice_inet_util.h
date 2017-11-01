@@ -12,7 +12,7 @@ namespace navirice {
 		bytes[1] = (ip >> 8) & 0xFF;
 		bytes[2] = (ip >> 16) & 0xFF;
 		bytes[3] = (ip >> 24) & 0xFF;   
-		return std::to_string(bytes[3]) + "." + std::to_string(bytes[2]) + "." + std::to_string(bytes[1]) + "." + std::to_string(bytes[0]); 	}
+		return std::to_string(bytes[0]) + "." + std::to_string(bytes[1]) + "." + std::to_string(bytes[2]) + "." + std::to_string(bytes[3]); 	}
 
 }
 

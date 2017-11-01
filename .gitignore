@@ -22,6 +22,9 @@ __pycache__
 *.dylib
 *.dll
 
+# Python PYC files
+*.pyc
+
 # Fortran module files
 *.mod
 *.smod
