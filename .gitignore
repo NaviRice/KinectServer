@@ -3,6 +3,7 @@ build
 Build
 bin
 __pycache__
+protobuf
 
 # Prerequisites
 *.d
