@@ -2,7 +2,7 @@
 Server to distribute kinect's incoming images.
 
 ### Prerequisites
-[Kinect -> libfreenect2](https://github.com/OpenKinect/libfreenect2)\n
+[Kinect -> libfreenect2](https://github.com/OpenKinect/libfreenect2)__
 [Protobuf(Google)](https://github.com/google/protobuf)
 
 ### How to compile
