@@ -31,73 +31,78 @@
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
-namespace navirice {
-class ImageSet;
-class ImageSetDefaultTypeInternal;
-extern ImageSetDefaultTypeInternal _ImageSet_default_instance_;
-class ImageSet_Image;
-class ImageSet_ImageDefaultTypeInternal;
-extern ImageSet_ImageDefaultTypeInternal _ImageSet_Image_default_instance_;
-}  // namespace navirice
-
-namespace navirice {
 
 namespace protobuf_navirice_5fimage_2eproto {
-// Internal implementation detail -- do not call these.
+// Internal implementation detail -- do not use these members.
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[];
-  static const ::google::protobuf::uint32 offsets[];
+  static const ::google::protobuf::internal::ParseTable schema[2];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
-  static void InitDefaultsImpl();
+  static const ::google::protobuf::uint32 offsets[];
 };
 void AddDescriptors();
-void InitDefaults();
-}  // namespace protobuf_navirice_5fimage_2eproto
-
-enum ImageSet_Image_DataType {
-  ImageSet_Image_DataType_FLOAT = 0,
-  ImageSet_Image_DataType_UBYTE = 1,
-  ImageSet_Image_DataType_ImageSet_Image_DataType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  ImageSet_Image_DataType_ImageSet_Image_DataType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
-};
-bool ImageSet_Image_DataType_IsValid(int value);
-const ImageSet_Image_DataType ImageSet_Image_DataType_DataType_MIN = ImageSet_Image_DataType_FLOAT;
-const ImageSet_Image_DataType ImageSet_Image_DataType_DataType_MAX = ImageSet_Image_DataType_UBYTE;
-const int ImageSet_Image_DataType_DataType_ARRAYSIZE = ImageSet_Image_DataType_DataType_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* ImageSet_Image_DataType_descriptor();
-inline const ::std::string& ImageSet_Image_DataType_Name(ImageSet_Image_DataType value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    ImageSet_Image_DataType_descriptor(), value);
+void InitDefaultsProtoImageImpl();
+void InitDefaultsProtoImage();
+void InitDefaultsProtoImageSetImpl();
+void InitDefaultsProtoImageSet();
+inline void InitDefaults() {
+  InitDefaultsProtoImage();
+  InitDefaultsProtoImageSet();
 }
-inline bool ImageSet_Image_DataType_Parse(
-    const ::std::string& name, ImageSet_Image_DataType* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<ImageSet_Image_DataType>(
-    ImageSet_Image_DataType_descriptor(), name, value);
+}  // namespace protobuf_navirice_5fimage_2eproto
+namespace navirice {
+class ProtoImage;
+class ProtoImageDefaultTypeInternal;
+extern ProtoImageDefaultTypeInternal _ProtoImage_default_instance_;
+class ProtoImageSet;
+class ProtoImageSetDefaultTypeInternal;
+extern ProtoImageSetDefaultTypeInternal _ProtoImageSet_default_instance_;
+}  // namespace navirice
+namespace navirice {
+
+enum ProtoImage_DataType {
+  ProtoImage_DataType_FLOAT = 0,
+  ProtoImage_DataType_UBYTE = 1,
+  ProtoImage_DataType_ProtoImage_DataType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  ProtoImage_DataType_ProtoImage_DataType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool ProtoImage_DataType_IsValid(int value);
+const ProtoImage_DataType ProtoImage_DataType_DataType_MIN = ProtoImage_DataType_FLOAT;
+const ProtoImage_DataType ProtoImage_DataType_DataType_MAX = ProtoImage_DataType_UBYTE;
+const int ProtoImage_DataType_DataType_ARRAYSIZE = ProtoImage_DataType_DataType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* ProtoImage_DataType_descriptor();
+inline const ::std::string& ProtoImage_DataType_Name(ProtoImage_DataType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    ProtoImage_DataType_descriptor(), value);
+}
+inline bool ProtoImage_DataType_Parse(
+    const ::std::string& name, ProtoImage_DataType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ProtoImage_DataType>(
+    ProtoImage_DataType_descriptor(), name, value);
 }
 // ===================================================================
 
-class ImageSet_Image : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:navirice.ImageSet.Image) */ {
+class ProtoImage : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:navirice.ProtoImage) */ {
  public:
-  ImageSet_Image();
-  virtual ~ImageSet_Image();
+  ProtoImage();
+  virtual ~ProtoImage();
 
-  ImageSet_Image(const ImageSet_Image& from);
+  ProtoImage(const ProtoImage& from);
 
-  inline ImageSet_Image& operator=(const ImageSet_Image& from) {
+  inline ProtoImage& operator=(const ProtoImage& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  ImageSet_Image(ImageSet_Image&& from) noexcept
-    : ImageSet_Image() {
+  ProtoImage(ProtoImage&& from) noexcept
+    : ProtoImage() {
     *this = ::std::move(from);
   }
 
-  inline ImageSet_Image& operator=(ImageSet_Image&& from) noexcept {
+  inline ProtoImage& operator=(ProtoImage&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -107,29 +112,30 @@ class ImageSet_Image : public ::google::protobuf::Message /* @@protoc_insertion_
   }
   #endif
   static const ::google::protobuf::Descriptor* descriptor();
-  static const ImageSet_Image& default_instance();
+  static const ProtoImage& default_instance();
 
-  static inline const ImageSet_Image* internal_default_instance() {
-    return reinterpret_cast<const ImageSet_Image*>(
-               &_ImageSet_Image_default_instance_);
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ProtoImage* internal_default_instance() {
+    return reinterpret_cast<const ProtoImage*>(
+               &_ProtoImage_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
     0;
 
-  void Swap(ImageSet_Image* other);
-  friend void swap(ImageSet_Image& a, ImageSet_Image& b) {
+  void Swap(ProtoImage* other);
+  friend void swap(ProtoImage& a, ProtoImage& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ImageSet_Image* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline ProtoImage* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  ImageSet_Image* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  ProtoImage* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const ImageSet_Image& from);
-  void MergeFrom(const ImageSet_Image& from);
+  void CopyFrom(const ProtoImage& from);
+  void MergeFrom(const ProtoImage& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -145,7 +151,7 @@ class ImageSet_Image : public ::google::protobuf::Message /* @@protoc_insertion_
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(ImageSet_Image* other);
+  void InternalSwap(ProtoImage* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -159,30 +165,30 @@ class ImageSet_Image : public ::google::protobuf::Message /* @@protoc_insertion_
 
   // nested types ----------------------------------------------------
 
-  typedef ImageSet_Image_DataType DataType;
+  typedef ProtoImage_DataType DataType;
   static const DataType FLOAT =
-    ImageSet_Image_DataType_FLOAT;
+    ProtoImage_DataType_FLOAT;
   static const DataType UBYTE =
-    ImageSet_Image_DataType_UBYTE;
+    ProtoImage_DataType_UBYTE;
   static inline bool DataType_IsValid(int value) {
-    return ImageSet_Image_DataType_IsValid(value);
+    return ProtoImage_DataType_IsValid(value);
   }
   static const DataType DataType_MIN =
-    ImageSet_Image_DataType_DataType_MIN;
+    ProtoImage_DataType_DataType_MIN;
   static const DataType DataType_MAX =
-    ImageSet_Image_DataType_DataType_MAX;
+    ProtoImage_DataType_DataType_MAX;
   static const int DataType_ARRAYSIZE =
-    ImageSet_Image_DataType_DataType_ARRAYSIZE;
+    ProtoImage_DataType_DataType_ARRAYSIZE;
   static inline const ::google::protobuf::EnumDescriptor*
   DataType_descriptor() {
-    return ImageSet_Image_DataType_descriptor();
+    return ProtoImage_DataType_descriptor();
   }
   static inline const ::std::string& DataType_Name(DataType value) {
-    return ImageSet_Image_DataType_Name(value);
+    return ProtoImage_DataType_Name(value);
   }
   static inline bool DataType_Parse(const ::std::string& name,
       DataType* value) {
-    return ImageSet_Image_DataType_Parse(name, value);
+    return ProtoImage_DataType_Parse(name, value);
   }
 
   // accessors -------------------------------------------------------
@@ -219,11 +225,11 @@ class ImageSet_Image : public ::google::protobuf::Message /* @@protoc_insertion_
   ::google::protobuf::uint32 channels() const;
   void set_channels(::google::protobuf::uint32 value);
 
-  // .navirice.ImageSet.Image.DataType data_type = 4;
+  // .navirice.ProtoImage.DataType data_type = 4;
   void clear_data_type();
   static const int kDataTypeFieldNumber = 4;
-  ::navirice::ImageSet_Image_DataType data_type() const;
-  void set_data_type(::navirice::ImageSet_Image_DataType value);
+  ::navirice::ProtoImage_DataType data_type() const;
+  void set_data_type(::navirice::ProtoImage_DataType value);
 
   // uint32 data_size = 5;
   void clear_data_size();
@@ -231,7 +237,7 @@ class ImageSet_Image : public ::google::protobuf::Message /* @@protoc_insertion_
   ::google::protobuf::uint32 data_size() const;
   void set_data_size(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:navirice.ImageSet.Image)
+  // @@protoc_insertion_point(class_scope:navirice.ProtoImage)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -242,28 +248,29 @@ class ImageSet_Image : public ::google::protobuf::Message /* @@protoc_insertion_
   int data_type_;
   ::google::protobuf::uint32 data_size_;
   mutable int _cached_size_;
-  friend struct protobuf_navirice_5fimage_2eproto::TableStruct;
+  friend struct ::protobuf_navirice_5fimage_2eproto::TableStruct;
+  friend void ::protobuf_navirice_5fimage_2eproto::InitDefaultsProtoImageImpl();
 };
 // -------------------------------------------------------------------
 
-class ImageSet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:navirice.ImageSet) */ {
+class ProtoImageSet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:navirice.ProtoImageSet) */ {
  public:
-  ImageSet();
-  virtual ~ImageSet();
+  ProtoImageSet();
+  virtual ~ProtoImageSet();
 
-  ImageSet(const ImageSet& from);
+  ProtoImageSet(const ProtoImageSet& from);
 
-  inline ImageSet& operator=(const ImageSet& from) {
+  inline ProtoImageSet& operator=(const ProtoImageSet& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  ImageSet(ImageSet&& from) noexcept
-    : ImageSet() {
+  ProtoImageSet(ProtoImageSet&& from) noexcept
+    : ProtoImageSet() {
     *this = ::std::move(from);
   }
 
-  inline ImageSet& operator=(ImageSet&& from) noexcept {
+  inline ProtoImageSet& operator=(ProtoImageSet&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -273,29 +280,30 @@ class ImageSet : public ::google::protobuf::Message /* @@protoc_insertion_point(
   }
   #endif
   static const ::google::protobuf::Descriptor* descriptor();
-  static const ImageSet& default_instance();
+  static const ProtoImageSet& default_instance();
 
-  static inline const ImageSet* internal_default_instance() {
-    return reinterpret_cast<const ImageSet*>(
-               &_ImageSet_default_instance_);
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ProtoImageSet* internal_default_instance() {
+    return reinterpret_cast<const ProtoImageSet*>(
+               &_ProtoImageSet_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
     1;
 
-  void Swap(ImageSet* other);
-  friend void swap(ImageSet& a, ImageSet& b) {
+  void Swap(ProtoImageSet* other);
+  friend void swap(ProtoImageSet& a, ProtoImageSet& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ImageSet* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline ProtoImageSet* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  ImageSet* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  ProtoImageSet* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const ImageSet& from);
-  void MergeFrom(const ImageSet& from);
+  void CopyFrom(const ProtoImageSet& from);
+  void MergeFrom(const ProtoImageSet& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -311,7 +319,7 @@ class ImageSet : public ::google::protobuf::Message /* @@protoc_insertion_point(
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(ImageSet* other);
+  void InternalSwap(ProtoImageSet* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -325,36 +333,34 @@ class ImageSet : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // nested types ----------------------------------------------------
 
-  typedef ImageSet_Image Image;
-
   // accessors -------------------------------------------------------
 
-  // .navirice.ImageSet.Image RGB = 2;
+  // .navirice.ProtoImage RGB = 2;
   bool has_rgb() const;
   void clear_rgb();
   static const int kRGBFieldNumber = 2;
-  const ::navirice::ImageSet_Image& rgb() const;
-  ::navirice::ImageSet_Image* mutable_rgb();
-  ::navirice::ImageSet_Image* release_rgb();
-  void set_allocated_rgb(::navirice::ImageSet_Image* rgb);
+  const ::navirice::ProtoImage& rgb() const;
+  ::navirice::ProtoImage* release_rgb();
+  ::navirice::ProtoImage* mutable_rgb();
+  void set_allocated_rgb(::navirice::ProtoImage* rgb);
 
-  // .navirice.ImageSet.Image Depth = 3;
+  // .navirice.ProtoImage Depth = 3;
   bool has_depth() const;
   void clear_depth();
   static const int kDepthFieldNumber = 3;
-  const ::navirice::ImageSet_Image& depth() const;
-  ::navirice::ImageSet_Image* mutable_depth();
-  ::navirice::ImageSet_Image* release_depth();
-  void set_allocated_depth(::navirice::ImageSet_Image* depth);
+  const ::navirice::ProtoImage& depth() const;
+  ::navirice::ProtoImage* release_depth();
+  ::navirice::ProtoImage* mutable_depth();
+  void set_allocated_depth(::navirice::ProtoImage* depth);
 
-  // .navirice.ImageSet.Image IR = 4;
+  // .navirice.ProtoImage IR = 4;
   bool has_ir() const;
   void clear_ir();
   static const int kIRFieldNumber = 4;
-  const ::navirice::ImageSet_Image& ir() const;
-  ::navirice::ImageSet_Image* mutable_ir();
-  ::navirice::ImageSet_Image* release_ir();
-  void set_allocated_ir(::navirice::ImageSet_Image* ir);
+  const ::navirice::ProtoImage& ir() const;
+  ::navirice::ProtoImage* release_ir();
+  ::navirice::ProtoImage* mutable_ir();
+  void set_allocated_ir(::navirice::ProtoImage* ir);
 
   // uint64 count = 1;
   void clear_count();
@@ -362,309 +368,337 @@ class ImageSet : public ::google::protobuf::Message /* @@protoc_insertion_point(
   ::google::protobuf::uint64 count() const;
   void set_count(::google::protobuf::uint64 value);
 
-  // @@protoc_insertion_point(class_scope:navirice.ImageSet)
+  // @@protoc_insertion_point(class_scope:navirice.ProtoImageSet)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::navirice::ImageSet_Image* rgb_;
-  ::navirice::ImageSet_Image* depth_;
-  ::navirice::ImageSet_Image* ir_;
+  ::navirice::ProtoImage* rgb_;
+  ::navirice::ProtoImage* depth_;
+  ::navirice::ProtoImage* ir_;
   ::google::protobuf::uint64 count_;
   mutable int _cached_size_;
-  friend struct protobuf_navirice_5fimage_2eproto::TableStruct;
+  friend struct ::protobuf_navirice_5fimage_2eproto::TableStruct;
+  friend void ::protobuf_navirice_5fimage_2eproto::InitDefaultsProtoImageSetImpl();
 };
 // ===================================================================
 
 
 // ===================================================================
 
-#if !PROTOBUF_INLINE_NOT_IN_HEADERS
 #ifdef __GNUC__
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// ImageSet_Image
+// ProtoImage
 
 // uint32 width = 1;
-inline void ImageSet_Image::clear_width() {
+inline void ProtoImage::clear_width() {
   width_ = 0u;
 }
-inline ::google::protobuf::uint32 ImageSet_Image::width() const {
-  // @@protoc_insertion_point(field_get:navirice.ImageSet.Image.width)
+inline ::google::protobuf::uint32 ProtoImage::width() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoImage.width)
   return width_;
 }
-inline void ImageSet_Image::set_width(::google::protobuf::uint32 value) {
+inline void ProtoImage::set_width(::google::protobuf::uint32 value) {
   
   width_ = value;
-  // @@protoc_insertion_point(field_set:navirice.ImageSet.Image.width)
+  // @@protoc_insertion_point(field_set:navirice.ProtoImage.width)
 }
 
 // uint32 height = 2;
-inline void ImageSet_Image::clear_height() {
+inline void ProtoImage::clear_height() {
   height_ = 0u;
 }
-inline ::google::protobuf::uint32 ImageSet_Image::height() const {
-  // @@protoc_insertion_point(field_get:navirice.ImageSet.Image.height)
+inline ::google::protobuf::uint32 ProtoImage::height() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoImage.height)
   return height_;
 }
-inline void ImageSet_Image::set_height(::google::protobuf::uint32 value) {
+inline void ProtoImage::set_height(::google::protobuf::uint32 value) {
   
   height_ = value;
-  // @@protoc_insertion_point(field_set:navirice.ImageSet.Image.height)
+  // @@protoc_insertion_point(field_set:navirice.ProtoImage.height)
 }
 
 // uint32 channels = 3;
-inline void ImageSet_Image::clear_channels() {
+inline void ProtoImage::clear_channels() {
   channels_ = 0u;
 }
-inline ::google::protobuf::uint32 ImageSet_Image::channels() const {
-  // @@protoc_insertion_point(field_get:navirice.ImageSet.Image.channels)
+inline ::google::protobuf::uint32 ProtoImage::channels() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoImage.channels)
   return channels_;
 }
-inline void ImageSet_Image::set_channels(::google::protobuf::uint32 value) {
+inline void ProtoImage::set_channels(::google::protobuf::uint32 value) {
   
   channels_ = value;
-  // @@protoc_insertion_point(field_set:navirice.ImageSet.Image.channels)
+  // @@protoc_insertion_point(field_set:navirice.ProtoImage.channels)
 }
 
-// .navirice.ImageSet.Image.DataType data_type = 4;
-inline void ImageSet_Image::clear_data_type() {
+// .navirice.ProtoImage.DataType data_type = 4;
+inline void ProtoImage::clear_data_type() {
   data_type_ = 0;
 }
-inline ::navirice::ImageSet_Image_DataType ImageSet_Image::data_type() const {
-  // @@protoc_insertion_point(field_get:navirice.ImageSet.Image.data_type)
-  return static_cast< ::navirice::ImageSet_Image_DataType >(data_type_);
+inline ::navirice::ProtoImage_DataType ProtoImage::data_type() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoImage.data_type)
+  return static_cast< ::navirice::ProtoImage_DataType >(data_type_);
 }
-inline void ImageSet_Image::set_data_type(::navirice::ImageSet_Image_DataType value) {
+inline void ProtoImage::set_data_type(::navirice::ProtoImage_DataType value) {
   
   data_type_ = value;
-  // @@protoc_insertion_point(field_set:navirice.ImageSet.Image.data_type)
+  // @@protoc_insertion_point(field_set:navirice.ProtoImage.data_type)
 }
 
 // uint32 data_size = 5;
-inline void ImageSet_Image::clear_data_size() {
+inline void ProtoImage::clear_data_size() {
   data_size_ = 0u;
 }
-inline ::google::protobuf::uint32 ImageSet_Image::data_size() const {
-  // @@protoc_insertion_point(field_get:navirice.ImageSet.Image.data_size)
+inline ::google::protobuf::uint32 ProtoImage::data_size() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoImage.data_size)
   return data_size_;
 }
-inline void ImageSet_Image::set_data_size(::google::protobuf::uint32 value) {
+inline void ProtoImage::set_data_size(::google::protobuf::uint32 value) {
   
   data_size_ = value;
-  // @@protoc_insertion_point(field_set:navirice.ImageSet.Image.data_size)
+  // @@protoc_insertion_point(field_set:navirice.ProtoImage.data_size)
 }
 
 // bytes data = 6;
-inline void ImageSet_Image::clear_data() {
+inline void ProtoImage::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& ImageSet_Image::data() const {
-  // @@protoc_insertion_point(field_get:navirice.ImageSet.Image.data)
+inline const ::std::string& ProtoImage::data() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoImage.data)
   return data_.GetNoArena();
 }
-inline void ImageSet_Image::set_data(const ::std::string& value) {
+inline void ProtoImage::set_data(const ::std::string& value) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:navirice.ImageSet.Image.data)
+  // @@protoc_insertion_point(field_set:navirice.ProtoImage.data)
 }
 #if LANG_CXX11
-inline void ImageSet_Image::set_data(::std::string&& value) {
+inline void ProtoImage::set_data(::std::string&& value) {
   
   data_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:navirice.ImageSet.Image.data)
+  // @@protoc_insertion_point(field_set_rvalue:navirice.ProtoImage.data)
 }
 #endif
-inline void ImageSet_Image::set_data(const char* value) {
+inline void ProtoImage::set_data(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:navirice.ImageSet.Image.data)
+  // @@protoc_insertion_point(field_set_char:navirice.ProtoImage.data)
 }
-inline void ImageSet_Image::set_data(const void* value, size_t size) {
+inline void ProtoImage::set_data(const void* value, size_t size) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:navirice.ImageSet.Image.data)
+  // @@protoc_insertion_point(field_set_pointer:navirice.ProtoImage.data)
 }
-inline ::std::string* ImageSet_Image::mutable_data() {
+inline ::std::string* ProtoImage::mutable_data() {
   
-  // @@protoc_insertion_point(field_mutable:navirice.ImageSet.Image.data)
+  // @@protoc_insertion_point(field_mutable:navirice.ProtoImage.data)
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* ImageSet_Image::release_data() {
-  // @@protoc_insertion_point(field_release:navirice.ImageSet.Image.data)
+inline ::std::string* ProtoImage::release_data() {
+  // @@protoc_insertion_point(field_release:navirice.ProtoImage.data)
   
   return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ImageSet_Image::set_allocated_data(::std::string* data) {
+inline void ProtoImage::set_allocated_data(::std::string* data) {
   if (data != NULL) {
     
   } else {
     
   }
   data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
-  // @@protoc_insertion_point(field_set_allocated:navirice.ImageSet.Image.data)
+  // @@protoc_insertion_point(field_set_allocated:navirice.ProtoImage.data)
 }
 
 // -------------------------------------------------------------------
 
-// ImageSet
+// ProtoImageSet
 
 // uint64 count = 1;
-inline void ImageSet::clear_count() {
+inline void ProtoImageSet::clear_count() {
   count_ = GOOGLE_ULONGLONG(0);
 }
-inline ::google::protobuf::uint64 ImageSet::count() const {
-  // @@protoc_insertion_point(field_get:navirice.ImageSet.count)
+inline ::google::protobuf::uint64 ProtoImageSet::count() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoImageSet.count)
   return count_;
 }
-inline void ImageSet::set_count(::google::protobuf::uint64 value) {
+inline void ProtoImageSet::set_count(::google::protobuf::uint64 value) {
   
   count_ = value;
-  // @@protoc_insertion_point(field_set:navirice.ImageSet.count)
+  // @@protoc_insertion_point(field_set:navirice.ProtoImageSet.count)
 }
 
-// .navirice.ImageSet.Image RGB = 2;
-inline bool ImageSet::has_rgb() const {
+// .navirice.ProtoImage RGB = 2;
+inline bool ProtoImageSet::has_rgb() const {
   return this != internal_default_instance() && rgb_ != NULL;
 }
-inline void ImageSet::clear_rgb() {
-  if (GetArenaNoVirtual() == NULL && rgb_ != NULL) delete rgb_;
+inline void ProtoImageSet::clear_rgb() {
+  if (GetArenaNoVirtual() == NULL && rgb_ != NULL) {
+    delete rgb_;
+  }
   rgb_ = NULL;
 }
-inline const ::navirice::ImageSet_Image& ImageSet::rgb() const {
-  const ::navirice::ImageSet_Image* p = rgb_;
-  // @@protoc_insertion_point(field_get:navirice.ImageSet.RGB)
-  return p != NULL ? *p : *reinterpret_cast<const ::navirice::ImageSet_Image*>(
-      &::navirice::_ImageSet_Image_default_instance_);
+inline const ::navirice::ProtoImage& ProtoImageSet::rgb() const {
+  const ::navirice::ProtoImage* p = rgb_;
+  // @@protoc_insertion_point(field_get:navirice.ProtoImageSet.RGB)
+  return p != NULL ? *p : *reinterpret_cast<const ::navirice::ProtoImage*>(
+      &::navirice::_ProtoImage_default_instance_);
 }
-inline ::navirice::ImageSet_Image* ImageSet::mutable_rgb() {
+inline ::navirice::ProtoImage* ProtoImageSet::release_rgb() {
+  // @@protoc_insertion_point(field_release:navirice.ProtoImageSet.RGB)
+  
+  ::navirice::ProtoImage* temp = rgb_;
+  rgb_ = NULL;
+  return temp;
+}
+inline ::navirice::ProtoImage* ProtoImageSet::mutable_rgb() {
   
   if (rgb_ == NULL) {
-    rgb_ = new ::navirice::ImageSet_Image;
+    rgb_ = new ::navirice::ProtoImage;
   }
-  // @@protoc_insertion_point(field_mutable:navirice.ImageSet.RGB)
+  // @@protoc_insertion_point(field_mutable:navirice.ProtoImageSet.RGB)
   return rgb_;
 }
-inline ::navirice::ImageSet_Image* ImageSet::release_rgb() {
-  // @@protoc_insertion_point(field_release:navirice.ImageSet.RGB)
-  
-  ::navirice::ImageSet_Image* temp = rgb_;
-  rgb_ = NULL;
-  return temp;
-}
-inline void ImageSet::set_allocated_rgb(::navirice::ImageSet_Image* rgb) {
-  delete rgb_;
-  rgb_ = rgb;
+inline void ProtoImageSet::set_allocated_rgb(::navirice::ProtoImage* rgb) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete rgb_;
+  }
   if (rgb) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      rgb = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, rgb, submessage_arena);
+    }
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:navirice.ImageSet.RGB)
+  rgb_ = rgb;
+  // @@protoc_insertion_point(field_set_allocated:navirice.ProtoImageSet.RGB)
 }
 
-// .navirice.ImageSet.Image Depth = 3;
-inline bool ImageSet::has_depth() const {
+// .navirice.ProtoImage Depth = 3;
+inline bool ProtoImageSet::has_depth() const {
   return this != internal_default_instance() && depth_ != NULL;
 }
-inline void ImageSet::clear_depth() {
-  if (GetArenaNoVirtual() == NULL && depth_ != NULL) delete depth_;
+inline void ProtoImageSet::clear_depth() {
+  if (GetArenaNoVirtual() == NULL && depth_ != NULL) {
+    delete depth_;
+  }
   depth_ = NULL;
 }
-inline const ::navirice::ImageSet_Image& ImageSet::depth() const {
-  const ::navirice::ImageSet_Image* p = depth_;
-  // @@protoc_insertion_point(field_get:navirice.ImageSet.Depth)
-  return p != NULL ? *p : *reinterpret_cast<const ::navirice::ImageSet_Image*>(
-      &::navirice::_ImageSet_Image_default_instance_);
+inline const ::navirice::ProtoImage& ProtoImageSet::depth() const {
+  const ::navirice::ProtoImage* p = depth_;
+  // @@protoc_insertion_point(field_get:navirice.ProtoImageSet.Depth)
+  return p != NULL ? *p : *reinterpret_cast<const ::navirice::ProtoImage*>(
+      &::navirice::_ProtoImage_default_instance_);
 }
-inline ::navirice::ImageSet_Image* ImageSet::mutable_depth() {
+inline ::navirice::ProtoImage* ProtoImageSet::release_depth() {
+  // @@protoc_insertion_point(field_release:navirice.ProtoImageSet.Depth)
+  
+  ::navirice::ProtoImage* temp = depth_;
+  depth_ = NULL;
+  return temp;
+}
+inline ::navirice::ProtoImage* ProtoImageSet::mutable_depth() {
   
   if (depth_ == NULL) {
-    depth_ = new ::navirice::ImageSet_Image;
+    depth_ = new ::navirice::ProtoImage;
   }
-  // @@protoc_insertion_point(field_mutable:navirice.ImageSet.Depth)
+  // @@protoc_insertion_point(field_mutable:navirice.ProtoImageSet.Depth)
   return depth_;
 }
-inline ::navirice::ImageSet_Image* ImageSet::release_depth() {
-  // @@protoc_insertion_point(field_release:navirice.ImageSet.Depth)
-  
-  ::navirice::ImageSet_Image* temp = depth_;
-  depth_ = NULL;
-  return temp;
-}
-inline void ImageSet::set_allocated_depth(::navirice::ImageSet_Image* depth) {
-  delete depth_;
-  depth_ = depth;
+inline void ProtoImageSet::set_allocated_depth(::navirice::ProtoImage* depth) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete depth_;
+  }
   if (depth) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      depth = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, depth, submessage_arena);
+    }
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:navirice.ImageSet.Depth)
+  depth_ = depth;
+  // @@protoc_insertion_point(field_set_allocated:navirice.ProtoImageSet.Depth)
 }
 
-// .navirice.ImageSet.Image IR = 4;
-inline bool ImageSet::has_ir() const {
+// .navirice.ProtoImage IR = 4;
+inline bool ProtoImageSet::has_ir() const {
   return this != internal_default_instance() && ir_ != NULL;
 }
-inline void ImageSet::clear_ir() {
-  if (GetArenaNoVirtual() == NULL && ir_ != NULL) delete ir_;
+inline void ProtoImageSet::clear_ir() {
+  if (GetArenaNoVirtual() == NULL && ir_ != NULL) {
+    delete ir_;
+  }
   ir_ = NULL;
 }
-inline const ::navirice::ImageSet_Image& ImageSet::ir() const {
-  const ::navirice::ImageSet_Image* p = ir_;
-  // @@protoc_insertion_point(field_get:navirice.ImageSet.IR)
-  return p != NULL ? *p : *reinterpret_cast<const ::navirice::ImageSet_Image*>(
-      &::navirice::_ImageSet_Image_default_instance_);
+inline const ::navirice::ProtoImage& ProtoImageSet::ir() const {
+  const ::navirice::ProtoImage* p = ir_;
+  // @@protoc_insertion_point(field_get:navirice.ProtoImageSet.IR)
+  return p != NULL ? *p : *reinterpret_cast<const ::navirice::ProtoImage*>(
+      &::navirice::_ProtoImage_default_instance_);
 }
-inline ::navirice::ImageSet_Image* ImageSet::mutable_ir() {
+inline ::navirice::ProtoImage* ProtoImageSet::release_ir() {
+  // @@protoc_insertion_point(field_release:navirice.ProtoImageSet.IR)
   
-  if (ir_ == NULL) {
-    ir_ = new ::navirice::ImageSet_Image;
-  }
-  // @@protoc_insertion_point(field_mutable:navirice.ImageSet.IR)
-  return ir_;
-}
-inline ::navirice::ImageSet_Image* ImageSet::release_ir() {
-  // @@protoc_insertion_point(field_release:navirice.ImageSet.IR)
-  
-  ::navirice::ImageSet_Image* temp = ir_;
+  ::navirice::ProtoImage* temp = ir_;
   ir_ = NULL;
   return temp;
 }
-inline void ImageSet::set_allocated_ir(::navirice::ImageSet_Image* ir) {
-  delete ir_;
-  ir_ = ir;
+inline ::navirice::ProtoImage* ProtoImageSet::mutable_ir() {
+  
+  if (ir_ == NULL) {
+    ir_ = new ::navirice::ProtoImage;
+  }
+  // @@protoc_insertion_point(field_mutable:navirice.ProtoImageSet.IR)
+  return ir_;
+}
+inline void ProtoImageSet::set_allocated_ir(::navirice::ProtoImage* ir) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete ir_;
+  }
   if (ir) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      ir = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, ir, submessage_arena);
+    }
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:navirice.ImageSet.IR)
+  ir_ = ir;
+  // @@protoc_insertion_point(field_set_allocated:navirice.ProtoImageSet.IR)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-#endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
 // -------------------------------------------------------------------
 
 
 // @@protoc_insertion_point(namespace_scope)
-
 
 }  // namespace navirice
 
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::navirice::ImageSet_Image_DataType> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::navirice::ProtoImage_DataType> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::navirice::ImageSet_Image_DataType>() {
-  return ::navirice::ImageSet_Image_DataType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::navirice::ProtoImage_DataType>() {
+  return ::navirice::ProtoImage_DataType_descriptor();
 }
 
 }  // namespace protobuf

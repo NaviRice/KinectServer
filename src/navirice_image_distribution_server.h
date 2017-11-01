@@ -28,7 +28,7 @@ namespace navirice {
 
 			// SERVER DATA
 			std::mutex current_image_mutex;
-			ImageSet images;
+			ProtoImageSet images;
 			uint64_t image_count;
 
 			// THREADS

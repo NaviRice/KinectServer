@@ -2,9 +2,7 @@ syntax = "proto3";
 
 package navirice;
 
-message ImageSet {
-
-	message Image {
+message ProtoImage {
 		uint32 width = 1;
 		uint32 height = 2;
 		uint32 channels = 3;
@@ -18,11 +16,11 @@ message ImageSet {
 		bytes data = 6;
 	}
 
+message ProtoImageSet {
 	uint64 count = 1;
-	Image RGB = 2;
-	Image Depth = 3;
-	Image IR = 4;
-
+	ProtoImage RGB = 2;
+	ProtoImage Depth = 3;
+	ProtoImage IR = 4;
 }
 
 

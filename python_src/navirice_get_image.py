@@ -25,7 +25,7 @@ def navirice_get_image(host, port):
         data += t
     s.close()
     print(len(data))
-    img_set = navirice_image_pb2.ImageSet()
+    img_set = navirice_image_pb2.ProtoImageSet()
     img_set.ParseFromString(data)
     return img_set
 

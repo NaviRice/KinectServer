@@ -107,13 +107,13 @@ navirice::ImageDistributionServer::~ImageDistributionServer(){
 #endif	
 }
 
-navirice::ImageSet_Image* naviriceImageToProtobuf(navirice::Image* img){
+navirice::ProtoImage* naviriceImageToProtobuf(navirice::Image* img){
 	if(img != NULL){	
-		navirice::ImageSet_Image* proto_img = new navirice::ImageSet_Image();
+		navirice::ProtoImage* proto_img = new navirice::ProtoImage();
 		proto_img->set_width(img->width());
 		proto_img->set_height(img->height());
 		proto_img->set_channels(img->channels());
-		proto_img->set_data_type(img->data_type() == navirice::ImageDataType::FLOAT ? navirice::ImageSet_Image_DataType_FLOAT:navirice::ImageSet_Image_DataType_UBYTE);
+		proto_img->set_data_type(img->data_type() == navirice::ImageDataType::FLOAT ? navirice::ProtoImage_DataType_FLOAT:navirice::ProtoImage_DataType_UBYTE);
 		proto_img->set_data_size(img->get_raw_data_size());
 		proto_img->set_data(std::string((char*)img->get_raw_data(), img->get_raw_data_size()));
 		return proto_img;
