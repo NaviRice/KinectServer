@@ -37,31 +37,65 @@ namespace protobuf_navirice_5fimage_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[2];
+  static const ::google::protobuf::internal::ParseTable schema[4];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
 };
 void AddDescriptors();
+void InitDefaultsProtoImageCountImpl();
+void InitDefaultsProtoImageCount();
+void InitDefaultsProtoAcknowledgeImpl();
+void InitDefaultsProtoAcknowledge();
 void InitDefaultsProtoImageImpl();
 void InitDefaultsProtoImage();
 void InitDefaultsProtoImageSetImpl();
 void InitDefaultsProtoImageSet();
 inline void InitDefaults() {
+  InitDefaultsProtoImageCount();
+  InitDefaultsProtoAcknowledge();
   InitDefaultsProtoImage();
   InitDefaultsProtoImageSet();
 }
 }  // namespace protobuf_navirice_5fimage_2eproto
 namespace navirice {
+class ProtoAcknowledge;
+class ProtoAcknowledgeDefaultTypeInternal;
+extern ProtoAcknowledgeDefaultTypeInternal _ProtoAcknowledge_default_instance_;
 class ProtoImage;
 class ProtoImageDefaultTypeInternal;
 extern ProtoImageDefaultTypeInternal _ProtoImage_default_instance_;
+class ProtoImageCount;
+class ProtoImageCountDefaultTypeInternal;
+extern ProtoImageCountDefaultTypeInternal _ProtoImageCount_default_instance_;
 class ProtoImageSet;
 class ProtoImageSetDefaultTypeInternal;
 extern ProtoImageSetDefaultTypeInternal _ProtoImageSet_default_instance_;
 }  // namespace navirice
 namespace navirice {
 
+enum ProtoAcknowledge_ACK {
+  ProtoAcknowledge_ACK_NONE = 0,
+  ProtoAcknowledge_ACK_CONTINUE = 1,
+  ProtoAcknowledge_ACK_STOP = 2,
+  ProtoAcknowledge_ACK_ProtoAcknowledge_ACK_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  ProtoAcknowledge_ACK_ProtoAcknowledge_ACK_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool ProtoAcknowledge_ACK_IsValid(int value);
+const ProtoAcknowledge_ACK ProtoAcknowledge_ACK_ACK_MIN = ProtoAcknowledge_ACK_NONE;
+const ProtoAcknowledge_ACK ProtoAcknowledge_ACK_ACK_MAX = ProtoAcknowledge_ACK_STOP;
+const int ProtoAcknowledge_ACK_ACK_ARRAYSIZE = ProtoAcknowledge_ACK_ACK_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* ProtoAcknowledge_ACK_descriptor();
+inline const ::std::string& ProtoAcknowledge_ACK_Name(ProtoAcknowledge_ACK value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    ProtoAcknowledge_ACK_descriptor(), value);
+}
+inline bool ProtoAcknowledge_ACK_Parse(
+    const ::std::string& name, ProtoAcknowledge_ACK* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ProtoAcknowledge_ACK>(
+    ProtoAcknowledge_ACK_descriptor(), name, value);
+}
 enum ProtoImage_DataType {
   ProtoImage_DataType_FLOAT = 0,
   ProtoImage_DataType_UBYTE = 1,
@@ -84,6 +118,246 @@ inline bool ProtoImage_DataType_Parse(
     ProtoImage_DataType_descriptor(), name, value);
 }
 // ===================================================================
+
+class ProtoImageCount : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:navirice.ProtoImageCount) */ {
+ public:
+  ProtoImageCount();
+  virtual ~ProtoImageCount();
+
+  ProtoImageCount(const ProtoImageCount& from);
+
+  inline ProtoImageCount& operator=(const ProtoImageCount& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ProtoImageCount(ProtoImageCount&& from) noexcept
+    : ProtoImageCount() {
+    *this = ::std::move(from);
+  }
+
+  inline ProtoImageCount& operator=(ProtoImageCount&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ProtoImageCount& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ProtoImageCount* internal_default_instance() {
+    return reinterpret_cast<const ProtoImageCount*>(
+               &_ProtoImageCount_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    0;
+
+  void Swap(ProtoImageCount* other);
+  friend void swap(ProtoImageCount& a, ProtoImageCount& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ProtoImageCount* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  ProtoImageCount* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const ProtoImageCount& from);
+  void MergeFrom(const ProtoImageCount& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(ProtoImageCount* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // uint64 count = 1;
+  void clear_count();
+  static const int kCountFieldNumber = 1;
+  ::google::protobuf::uint64 count() const;
+  void set_count(::google::protobuf::uint64 value);
+
+  // uint64 byte_count = 2;
+  void clear_byte_count();
+  static const int kByteCountFieldNumber = 2;
+  ::google::protobuf::uint64 byte_count() const;
+  void set_byte_count(::google::protobuf::uint64 value);
+
+  // @@protoc_insertion_point(class_scope:navirice.ProtoImageCount)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 count_;
+  ::google::protobuf::uint64 byte_count_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_navirice_5fimage_2eproto::TableStruct;
+  friend void ::protobuf_navirice_5fimage_2eproto::InitDefaultsProtoImageCountImpl();
+};
+// -------------------------------------------------------------------
+
+class ProtoAcknowledge : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:navirice.ProtoAcknowledge) */ {
+ public:
+  ProtoAcknowledge();
+  virtual ~ProtoAcknowledge();
+
+  ProtoAcknowledge(const ProtoAcknowledge& from);
+
+  inline ProtoAcknowledge& operator=(const ProtoAcknowledge& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ProtoAcknowledge(ProtoAcknowledge&& from) noexcept
+    : ProtoAcknowledge() {
+    *this = ::std::move(from);
+  }
+
+  inline ProtoAcknowledge& operator=(ProtoAcknowledge&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ProtoAcknowledge& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ProtoAcknowledge* internal_default_instance() {
+    return reinterpret_cast<const ProtoAcknowledge*>(
+               &_ProtoAcknowledge_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    1;
+
+  void Swap(ProtoAcknowledge* other);
+  friend void swap(ProtoAcknowledge& a, ProtoAcknowledge& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ProtoAcknowledge* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  ProtoAcknowledge* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const ProtoAcknowledge& from);
+  void MergeFrom(const ProtoAcknowledge& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(ProtoAcknowledge* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  typedef ProtoAcknowledge_ACK ACK;
+  static const ACK NONE =
+    ProtoAcknowledge_ACK_NONE;
+  static const ACK CONTINUE =
+    ProtoAcknowledge_ACK_CONTINUE;
+  static const ACK STOP =
+    ProtoAcknowledge_ACK_STOP;
+  static inline bool ACK_IsValid(int value) {
+    return ProtoAcknowledge_ACK_IsValid(value);
+  }
+  static const ACK ACK_MIN =
+    ProtoAcknowledge_ACK_ACK_MIN;
+  static const ACK ACK_MAX =
+    ProtoAcknowledge_ACK_ACK_MAX;
+  static const int ACK_ARRAYSIZE =
+    ProtoAcknowledge_ACK_ACK_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  ACK_descriptor() {
+    return ProtoAcknowledge_ACK_descriptor();
+  }
+  static inline const ::std::string& ACK_Name(ACK value) {
+    return ProtoAcknowledge_ACK_Name(value);
+  }
+  static inline bool ACK_Parse(const ::std::string& name,
+      ACK* value) {
+    return ProtoAcknowledge_ACK_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  // uint64 count = 2;
+  void clear_count();
+  static const int kCountFieldNumber = 2;
+  ::google::protobuf::uint64 count() const;
+  void set_count(::google::protobuf::uint64 value);
+
+  // .navirice.ProtoAcknowledge.ACK state = 1;
+  void clear_state();
+  static const int kStateFieldNumber = 1;
+  ::navirice::ProtoAcknowledge_ACK state() const;
+  void set_state(::navirice::ProtoAcknowledge_ACK value);
+
+  // @@protoc_insertion_point(class_scope:navirice.ProtoAcknowledge)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint64 count_;
+  int state_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_navirice_5fimage_2eproto::TableStruct;
+  friend void ::protobuf_navirice_5fimage_2eproto::InitDefaultsProtoAcknowledgeImpl();
+};
+// -------------------------------------------------------------------
 
 class ProtoImage : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:navirice.ProtoImage) */ {
  public:
@@ -120,7 +394,7 @@ class ProtoImage : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_ProtoImage_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    0;
+    2;
 
   void Swap(ProtoImage* other);
   friend void swap(ProtoImage& a, ProtoImage& b) {
@@ -288,7 +562,7 @@ class ProtoImageSet : public ::google::protobuf::Message /* @@protoc_insertion_p
                &_ProtoImageSet_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    1;
+    3;
 
   void Swap(ProtoImageSet* other);
   friend void swap(ProtoImageSet& a, ProtoImageSet& b) {
@@ -389,6 +663,70 @@ class ProtoImageSet : public ::google::protobuf::Message /* @@protoc_insertion_p
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// ProtoImageCount
+
+// uint64 count = 1;
+inline void ProtoImageCount::clear_count() {
+  count_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 ProtoImageCount::count() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoImageCount.count)
+  return count_;
+}
+inline void ProtoImageCount::set_count(::google::protobuf::uint64 value) {
+  
+  count_ = value;
+  // @@protoc_insertion_point(field_set:navirice.ProtoImageCount.count)
+}
+
+// uint64 byte_count = 2;
+inline void ProtoImageCount::clear_byte_count() {
+  byte_count_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 ProtoImageCount::byte_count() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoImageCount.byte_count)
+  return byte_count_;
+}
+inline void ProtoImageCount::set_byte_count(::google::protobuf::uint64 value) {
+  
+  byte_count_ = value;
+  // @@protoc_insertion_point(field_set:navirice.ProtoImageCount.byte_count)
+}
+
+// -------------------------------------------------------------------
+
+// ProtoAcknowledge
+
+// .navirice.ProtoAcknowledge.ACK state = 1;
+inline void ProtoAcknowledge::clear_state() {
+  state_ = 0;
+}
+inline ::navirice::ProtoAcknowledge_ACK ProtoAcknowledge::state() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoAcknowledge.state)
+  return static_cast< ::navirice::ProtoAcknowledge_ACK >(state_);
+}
+inline void ProtoAcknowledge::set_state(::navirice::ProtoAcknowledge_ACK value) {
+  
+  state_ = value;
+  // @@protoc_insertion_point(field_set:navirice.ProtoAcknowledge.state)
+}
+
+// uint64 count = 2;
+inline void ProtoAcknowledge::clear_count() {
+  count_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 ProtoAcknowledge::count() const {
+  // @@protoc_insertion_point(field_get:navirice.ProtoAcknowledge.count)
+  return count_;
+}
+inline void ProtoAcknowledge::set_count(::google::protobuf::uint64 value) {
+  
+  count_ = value;
+  // @@protoc_insertion_point(field_set:navirice.ProtoAcknowledge.count)
+}
+
+// -------------------------------------------------------------------
+
 // ProtoImage
 
 // uint32 width = 1;
@@ -687,6 +1025,10 @@ inline void ProtoImageSet::set_allocated_ir(::navirice::ProtoImage* ir) {
 #endif  // __GNUC__
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -695,6 +1037,11 @@ inline void ProtoImageSet::set_allocated_ir(::navirice::ProtoImage* ir) {
 namespace google {
 namespace protobuf {
 
+template <> struct is_proto_enum< ::navirice::ProtoAcknowledge_ACK> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::navirice::ProtoAcknowledge_ACK>() {
+  return ::navirice::ProtoAcknowledge_ACK_descriptor();
+}
 template <> struct is_proto_enum< ::navirice::ProtoImage_DataType> : ::google::protobuf::internal::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::navirice::ProtoImage_DataType>() {

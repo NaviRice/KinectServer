@@ -16,21 +16,49 @@ void navirice::ImageDistributionServer::handle_request(int cli_sock, sockaddr_in
 
 void navirice::ImageDistributionServer::send_images(int cli_sock, sockaddr_in cli_addr){
 	this->current_image_mutex.lock();
+	uint64_t count = this->image_count;
 	std::string data = this->images.SerializeAsString();
 	this->current_image_mutex.unlock();
+	ssize_t n;
+
+	ProtoImageCount count_msg;
+	count_msg.set_count(count);
+	count_msg.set_byte_count(data.length());
+	std::string count_msg_str = count_msg.SerializeAsString();
+	n = write(cli_sock, count_msg_str.c_str(), count_msg_str.length());
+	if(n < 0){
+#ifdef PRINT_LOG
+		std::cout << this->get_prompt() + ansi::red("WRITE ERROR") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+#endif
+		return;
+	}
+
+	char read_buf[1024] = "";
+	n = read(cli_sock, read_buf, 1024);
+	if(n < 0){
+#ifdef PRINT_LOG
+		std::cout << this->get_prompt() + ansi::red("READ ERROR") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+#endif
+		return;
+	}
+
+	ProtoAcknowledge ack_msg;
+	ack_msg.ParseFromArray(read_buf, n);
+	if(ack_msg.state() != ProtoAcknowledge::CONTINUE){
+		return;
+	}
 
 #ifdef PRINT_LOG
 	std::cout << this->get_prompt() + "sending images to " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
 
-	ssize_t n = write(cli_sock, data.c_str(), data.length());
+	n = write(cli_sock, data.c_str(), data.length());
 	if(n < 0){
 #ifdef PRINT_LOG
 		std::cout << this->get_prompt() + ansi::red("WRITE ERROR") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif	
 	}
 
-	data.clear();
 }
 
 void navirice::ImageDistributionServer::server_connection_listener(){
@@ -42,10 +70,23 @@ void navirice::ImageDistributionServer::server_connection_listener(){
 		struct sockaddr_in cli_addr;
 		clilen = sizeof(cli_addr);
 		int cli_sock = accept(listener, (struct sockaddr *) &cli_addr, &clilen);
-		if (cli_sock >= 0){
-			std::thread worker(&ImageDistributionServer::handle_request, this, cli_sock, cli_addr);
-			worker.detach();
-		}
+
+		struct timeval timeout;      
+		timeout.tv_sec = 2;
+		timeout.tv_usec = 0;
+
+		if (cli_sock >= 0)	
+			if (setsockopt (cli_sock, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout)) >= 0){
+				if (setsockopt (cli_sock, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout)) >= 0){
+					std::thread worker(&ImageDistributionServer::handle_request, this, cli_sock, cli_addr);
+					worker.detach();
+				} else {
+					close(cli_sock);
+				}
+			} else {
+				close(cli_sock);
+			}
+
 	}
 }
 
@@ -133,7 +174,7 @@ void navirice::ImageDistributionServer::set_new_images(Image* new_color_image, I
 	this->images.set_allocated_depth(naviriceImageToProtobuf(new_depth_image));
 	this->images.set_allocated_ir(naviriceImageToProtobuf(new_ir_image));
 #ifdef PRINT_LOG
-	std::cout << get_prompt() + "[" + ansi::yellow("setting new image") + "] -> Buffer Size: " + std::to_string(this->images.ByteSize()) + "\n"; 
+	std::cout << get_prompt() + "[" + ansi::yellow("setting new image " + std::to_string(image_count)) + "] -> Buffer Size: " + std::to_string(this->images.ByteSize()) + "\n"; 
 #endif
 	this->current_image_mutex.unlock();
 }

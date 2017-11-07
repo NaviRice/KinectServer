@@ -20,6 +20,16 @@
 #endif
 // @@protoc_insertion_point(includes)
 namespace navirice {
+class ProtoImageCountDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<ProtoImageCount>
+      _instance;
+} _ProtoImageCount_default_instance_;
+class ProtoAcknowledgeDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<ProtoAcknowledge>
+      _instance;
+} _ProtoAcknowledge_default_instance_;
 class ProtoImageDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ProtoImage>
@@ -32,6 +42,48 @@ class ProtoImageSetDefaultTypeInternal {
 } _ProtoImageSet_default_instance_;
 }  // namespace navirice
 namespace protobuf_navirice_5fimage_2eproto {
+void InitDefaultsProtoImageCountImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::navirice::_ProtoImageCount_default_instance_;
+    new (ptr) ::navirice::ProtoImageCount();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::navirice::ProtoImageCount::InitAsDefaultInstance();
+}
+
+void InitDefaultsProtoImageCount() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsProtoImageCountImpl);
+}
+
+void InitDefaultsProtoAcknowledgeImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::navirice::_ProtoAcknowledge_default_instance_;
+    new (ptr) ::navirice::ProtoAcknowledge();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::navirice::ProtoAcknowledge::InitAsDefaultInstance();
+}
+
+void InitDefaultsProtoAcknowledge() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsProtoAcknowledgeImpl);
+}
+
 void InitDefaultsProtoImageImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -75,10 +127,24 @@ void InitDefaultsProtoImageSet() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsProtoImageSetImpl);
 }
 
-::google::protobuf::Metadata file_level_metadata[2];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
+::google::protobuf::Metadata file_level_metadata[4];
+const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[2];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::navirice::ProtoImageCount, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::navirice::ProtoImageCount, count_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::navirice::ProtoImageCount, byte_count_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::navirice::ProtoAcknowledge, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::navirice::ProtoAcknowledge, state_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::navirice::ProtoAcknowledge, count_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::navirice::ProtoImage, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -101,11 +167,15 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::navirice::ProtoImageSet, ir_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::navirice::ProtoImage)},
-  { 11, -1, sizeof(::navirice::ProtoImageSet)},
+  { 0, -1, sizeof(::navirice::ProtoImageCount)},
+  { 7, -1, sizeof(::navirice::ProtoAcknowledge)},
+  { 14, -1, sizeof(::navirice::ProtoImage)},
+  { 25, -1, sizeof(::navirice::ProtoImageSet)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&::navirice::_ProtoImageCount_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::navirice::_ProtoAcknowledge_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::navirice::_ProtoImage_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::navirice::_ProtoImageSet_default_instance_),
 };
@@ -126,24 +196,29 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 2);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 4);
 }
 
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\024navirice_image.proto\022\010navirice\"\262\001\n\nPro"
-      "toImage\022\r\n\005width\030\001 \001(\r\022\016\n\006height\030\002 \001(\r\022\020"
-      "\n\010channels\030\003 \001(\r\0220\n\tdata_type\030\004 \001(\0162\035.na"
-      "virice.ProtoImage.DataType\022\021\n\tdata_size\030"
-      "\005 \001(\r\022\014\n\004data\030\006 \001(\014\" \n\010DataType\022\t\n\005FLOAT"
-      "\020\000\022\t\n\005UBYTE\020\001\"\210\001\n\rProtoImageSet\022\r\n\005count"
-      "\030\001 \001(\004\022!\n\003RGB\030\002 \001(\0132\024.navirice.ProtoImag"
-      "e\022#\n\005Depth\030\003 \001(\0132\024.navirice.ProtoImage\022 "
-      "\n\002IR\030\004 \001(\0132\024.navirice.ProtoImageb\006proto3"
+      "\n\024navirice_image.proto\022\010navirice\"4\n\017Prot"
+      "oImageCount\022\r\n\005count\030\001 \001(\004\022\022\n\nbyte_count"
+      "\030\002 \001(\004\"y\n\020ProtoAcknowledge\022-\n\005state\030\001 \001("
+      "\0162\036.navirice.ProtoAcknowledge.ACK\022\r\n\005cou"
+      "nt\030\002 \001(\004\"\'\n\003ACK\022\010\n\004NONE\020\000\022\014\n\010CONTINUE\020\001\022"
+      "\010\n\004STOP\020\002\"\262\001\n\nProtoImage\022\r\n\005width\030\001 \001(\r\022"
+      "\016\n\006height\030\002 \001(\r\022\020\n\010channels\030\003 \001(\r\0220\n\tdat"
+      "a_type\030\004 \001(\0162\035.navirice.ProtoImage.DataT"
+      "ype\022\021\n\tdata_size\030\005 \001(\r\022\014\n\004data\030\006 \001(\014\" \n\010"
+      "DataType\022\t\n\005FLOAT\020\000\022\t\n\005UBYTE\020\001\"\210\001\n\rProto"
+      "ImageSet\022\r\n\005count\030\001 \001(\004\022!\n\003RGB\030\002 \001(\0132\024.n"
+      "avirice.ProtoImage\022#\n\005Depth\030\003 \001(\0132\024.navi"
+      "rice.ProtoImage\022 \n\002IR\030\004 \001(\0132\024.navirice.P"
+      "rotoImageb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 360);
+      descriptor, 537);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "navirice_image.proto", &protobuf_RegisterTypes);
 }
@@ -160,9 +235,32 @@ struct StaticDescriptorInitializer {
 } static_descriptor_initializer;
 }  // namespace protobuf_navirice_5fimage_2eproto
 namespace navirice {
-const ::google::protobuf::EnumDescriptor* ProtoImage_DataType_descriptor() {
+const ::google::protobuf::EnumDescriptor* ProtoAcknowledge_ACK_descriptor() {
   protobuf_navirice_5fimage_2eproto::protobuf_AssignDescriptorsOnce();
   return protobuf_navirice_5fimage_2eproto::file_level_enum_descriptors[0];
+}
+bool ProtoAcknowledge_ACK_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const ProtoAcknowledge_ACK ProtoAcknowledge::NONE;
+const ProtoAcknowledge_ACK ProtoAcknowledge::CONTINUE;
+const ProtoAcknowledge_ACK ProtoAcknowledge::STOP;
+const ProtoAcknowledge_ACK ProtoAcknowledge::ACK_MIN;
+const ProtoAcknowledge_ACK ProtoAcknowledge::ACK_MAX;
+const int ProtoAcknowledge::ACK_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+const ::google::protobuf::EnumDescriptor* ProtoImage_DataType_descriptor() {
+  protobuf_navirice_5fimage_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_navirice_5fimage_2eproto::file_level_enum_descriptors[1];
 }
 bool ProtoImage_DataType_IsValid(int value) {
   switch (value) {
@@ -181,6 +279,568 @@ const ProtoImage_DataType ProtoImage::DataType_MIN;
 const ProtoImage_DataType ProtoImage::DataType_MAX;
 const int ProtoImage::DataType_ARRAYSIZE;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+// ===================================================================
+
+void ProtoImageCount::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int ProtoImageCount::kCountFieldNumber;
+const int ProtoImageCount::kByteCountFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+ProtoImageCount::ProtoImageCount()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_navirice_5fimage_2eproto::InitDefaultsProtoImageCount();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:navirice.ProtoImageCount)
+}
+ProtoImageCount::ProtoImageCount(const ProtoImageCount& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&count_, &from.count_,
+    static_cast<size_t>(reinterpret_cast<char*>(&byte_count_) -
+    reinterpret_cast<char*>(&count_)) + sizeof(byte_count_));
+  // @@protoc_insertion_point(copy_constructor:navirice.ProtoImageCount)
+}
+
+void ProtoImageCount::SharedCtor() {
+  ::memset(&count_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&byte_count_) -
+      reinterpret_cast<char*>(&count_)) + sizeof(byte_count_));
+  _cached_size_ = 0;
+}
+
+ProtoImageCount::~ProtoImageCount() {
+  // @@protoc_insertion_point(destructor:navirice.ProtoImageCount)
+  SharedDtor();
+}
+
+void ProtoImageCount::SharedDtor() {
+}
+
+void ProtoImageCount::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ProtoImageCount::descriptor() {
+  ::protobuf_navirice_5fimage_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_navirice_5fimage_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const ProtoImageCount& ProtoImageCount::default_instance() {
+  ::protobuf_navirice_5fimage_2eproto::InitDefaultsProtoImageCount();
+  return *internal_default_instance();
+}
+
+ProtoImageCount* ProtoImageCount::New(::google::protobuf::Arena* arena) const {
+  ProtoImageCount* n = new ProtoImageCount;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void ProtoImageCount::Clear() {
+// @@protoc_insertion_point(message_clear_start:navirice.ProtoImageCount)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&count_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&byte_count_) -
+      reinterpret_cast<char*>(&count_)) + sizeof(byte_count_));
+  _internal_metadata_.Clear();
+}
+
+bool ProtoImageCount::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:navirice.ProtoImageCount)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // uint64 count = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &count_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint64 byte_count = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &byte_count_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:navirice.ProtoImageCount)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:navirice.ProtoImageCount)
+  return false;
+#undef DO_
+}
+
+void ProtoImageCount::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:navirice.ProtoImageCount)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 count = 1;
+  if (this->count() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(1, this->count(), output);
+  }
+
+  // uint64 byte_count = 2;
+  if (this->byte_count() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(2, this->byte_count(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:navirice.ProtoImageCount)
+}
+
+::google::protobuf::uint8* ProtoImageCount::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:navirice.ProtoImageCount)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 count = 1;
+  if (this->count() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1, this->count(), target);
+  }
+
+  // uint64 byte_count = 2;
+  if (this->byte_count() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(2, this->byte_count(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:navirice.ProtoImageCount)
+  return target;
+}
+
+size_t ProtoImageCount::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:navirice.ProtoImageCount)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // uint64 count = 1;
+  if (this->count() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt64Size(
+        this->count());
+  }
+
+  // uint64 byte_count = 2;
+  if (this->byte_count() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt64Size(
+        this->byte_count());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ProtoImageCount::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:navirice.ProtoImageCount)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ProtoImageCount* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const ProtoImageCount>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:navirice.ProtoImageCount)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:navirice.ProtoImageCount)
+    MergeFrom(*source);
+  }
+}
+
+void ProtoImageCount::MergeFrom(const ProtoImageCount& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:navirice.ProtoImageCount)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.count() != 0) {
+    set_count(from.count());
+  }
+  if (from.byte_count() != 0) {
+    set_byte_count(from.byte_count());
+  }
+}
+
+void ProtoImageCount::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:navirice.ProtoImageCount)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ProtoImageCount::CopyFrom(const ProtoImageCount& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:navirice.ProtoImageCount)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ProtoImageCount::IsInitialized() const {
+  return true;
+}
+
+void ProtoImageCount::Swap(ProtoImageCount* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void ProtoImageCount::InternalSwap(ProtoImageCount* other) {
+  using std::swap;
+  swap(count_, other->count_);
+  swap(byte_count_, other->byte_count_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata ProtoImageCount::GetMetadata() const {
+  protobuf_navirice_5fimage_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_navirice_5fimage_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void ProtoAcknowledge::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int ProtoAcknowledge::kStateFieldNumber;
+const int ProtoAcknowledge::kCountFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+ProtoAcknowledge::ProtoAcknowledge()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_navirice_5fimage_2eproto::InitDefaultsProtoAcknowledge();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:navirice.ProtoAcknowledge)
+}
+ProtoAcknowledge::ProtoAcknowledge(const ProtoAcknowledge& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&count_, &from.count_,
+    static_cast<size_t>(reinterpret_cast<char*>(&state_) -
+    reinterpret_cast<char*>(&count_)) + sizeof(state_));
+  // @@protoc_insertion_point(copy_constructor:navirice.ProtoAcknowledge)
+}
+
+void ProtoAcknowledge::SharedCtor() {
+  ::memset(&count_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&state_) -
+      reinterpret_cast<char*>(&count_)) + sizeof(state_));
+  _cached_size_ = 0;
+}
+
+ProtoAcknowledge::~ProtoAcknowledge() {
+  // @@protoc_insertion_point(destructor:navirice.ProtoAcknowledge)
+  SharedDtor();
+}
+
+void ProtoAcknowledge::SharedDtor() {
+}
+
+void ProtoAcknowledge::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ProtoAcknowledge::descriptor() {
+  ::protobuf_navirice_5fimage_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_navirice_5fimage_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const ProtoAcknowledge& ProtoAcknowledge::default_instance() {
+  ::protobuf_navirice_5fimage_2eproto::InitDefaultsProtoAcknowledge();
+  return *internal_default_instance();
+}
+
+ProtoAcknowledge* ProtoAcknowledge::New(::google::protobuf::Arena* arena) const {
+  ProtoAcknowledge* n = new ProtoAcknowledge;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void ProtoAcknowledge::Clear() {
+// @@protoc_insertion_point(message_clear_start:navirice.ProtoAcknowledge)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&count_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&state_) -
+      reinterpret_cast<char*>(&count_)) + sizeof(state_));
+  _internal_metadata_.Clear();
+}
+
+bool ProtoAcknowledge::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:navirice.ProtoAcknowledge)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .navirice.ProtoAcknowledge.ACK state = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_state(static_cast< ::navirice::ProtoAcknowledge_ACK >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint64 count = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &count_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:navirice.ProtoAcknowledge)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:navirice.ProtoAcknowledge)
+  return false;
+#undef DO_
+}
+
+void ProtoAcknowledge::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:navirice.ProtoAcknowledge)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .navirice.ProtoAcknowledge.ACK state = 1;
+  if (this->state() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->state(), output);
+  }
+
+  // uint64 count = 2;
+  if (this->count() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(2, this->count(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:navirice.ProtoAcknowledge)
+}
+
+::google::protobuf::uint8* ProtoAcknowledge::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:navirice.ProtoAcknowledge)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .navirice.ProtoAcknowledge.ACK state = 1;
+  if (this->state() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->state(), target);
+  }
+
+  // uint64 count = 2;
+  if (this->count() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(2, this->count(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:navirice.ProtoAcknowledge)
+  return target;
+}
+
+size_t ProtoAcknowledge::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:navirice.ProtoAcknowledge)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // uint64 count = 2;
+  if (this->count() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt64Size(
+        this->count());
+  }
+
+  // .navirice.ProtoAcknowledge.ACK state = 1;
+  if (this->state() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->state());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ProtoAcknowledge::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:navirice.ProtoAcknowledge)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ProtoAcknowledge* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const ProtoAcknowledge>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:navirice.ProtoAcknowledge)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:navirice.ProtoAcknowledge)
+    MergeFrom(*source);
+  }
+}
+
+void ProtoAcknowledge::MergeFrom(const ProtoAcknowledge& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:navirice.ProtoAcknowledge)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.count() != 0) {
+    set_count(from.count());
+  }
+  if (from.state() != 0) {
+    set_state(from.state());
+  }
+}
+
+void ProtoAcknowledge::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:navirice.ProtoAcknowledge)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ProtoAcknowledge::CopyFrom(const ProtoAcknowledge& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:navirice.ProtoAcknowledge)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ProtoAcknowledge::IsInitialized() const {
+  return true;
+}
+
+void ProtoAcknowledge::Swap(ProtoAcknowledge* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void ProtoAcknowledge::InternalSwap(ProtoAcknowledge* other) {
+  using std::swap;
+  swap(count_, other->count_);
+  swap(state_, other->state_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata ProtoAcknowledge::GetMetadata() const {
+  protobuf_navirice_5fimage_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_navirice_5fimage_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
 
 // ===================================================================
 
