@@ -3,7 +3,7 @@
 #include "navirice_inet_util.h"
 #include "navirice_image_impl.h"
 
-#include "protobuf/navirice_image.pb.h"
+#include "proto/navirice_image.pb.h"
 
 #include <cerrno>
 #include <cstring>
@@ -75,7 +75,7 @@ void navirice::ImageDistributionServer::server_connection_listener(){
 		timeout.tv_sec = 2;
 		timeout.tv_usec = 0;
 
-		if (cli_sock >= 0)	
+		if (cli_sock >= 0){	
 			if (setsockopt (cli_sock, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout)) >= 0){
 				if (setsockopt (cli_sock, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout)) >= 0){
 					std::thread worker(&ImageDistributionServer::handle_request, this, cli_sock, cli_addr);
@@ -86,6 +86,7 @@ void navirice::ImageDistributionServer::server_connection_listener(){
 			} else {
 				close(cli_sock);
 			}
+		}
 
 	}
 }

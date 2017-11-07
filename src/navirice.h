@@ -7,6 +7,4 @@
 #include "navirice_config.h"
 #include "navirice_image_distribution_server.h"
 
-#include "protobuf/navirice_image.pb.h"
-
 #endif 

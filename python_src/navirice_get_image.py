@@ -1,6 +1,9 @@
 # Echo client program
 import socket
 import time
+import os
+
+os.system("protoc -I=../proto --python_out=. ../proto/navirice_image.proto")
 
 import navirice_image_pb2
 

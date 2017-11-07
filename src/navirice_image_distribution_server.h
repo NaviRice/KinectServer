@@ -15,7 +15,7 @@
 #include "navirice_config.h"
 #include "navirice_image.h"
 
-#include "protobuf/navirice_image.pb.h"
+#include "proto/navirice_image.pb.h"
 
 namespace navirice {
 
