@@ -8,9 +8,6 @@ SET(SOURCE
 	src/navirice_image_impl.cc
 )
 
-# For release
-SET(CMAKE_BUILD_TYPE Release)
-
 # Threads
 FIND_PACKAGE(Threads REQUIRED)
 
