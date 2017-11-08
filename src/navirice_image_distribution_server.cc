@@ -20,7 +20,6 @@ void navirice::ImageDistributionServer::send_images(int cli_sock, sockaddr_in cl
 	std::string data = this->images.SerializeAsString();
 	this->current_image_mutex.unlock();
 	ssize_t n;
-	bool bypass = false;
 	
 	ProtoImageCount count_msg;
 	count_msg.set_count(count);
@@ -32,44 +31,43 @@ void navirice::ImageDistributionServer::send_images(int cli_sock, sockaddr_in cl
 #ifdef PRINT_LOG
 		std::cout << this->get_prompt() + ansi::red("WRITE ERROR 1") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
-		bypass = true;
+		return;
 	}
 
 	char read_buf[1024] = "";
-	if(!bypass) n = read(cli_sock, read_buf, 1024);
-	if(n < 0 && !bypass){
+	n = read(cli_sock, read_buf, 1024);
+	if(n < 0){
 #ifdef PRINT_LOG
 		std::cout << this->get_prompt() + ansi::red("READ ERROR") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
-		bypass = true;
+		return;
 	}
 
 	ProtoAcknowledge ack_msg;
 	ack_msg.ParseFromArray(read_buf, n);
 	if(ack_msg.state() != ProtoAcknowledge::CONTINUE){
-#ifdef PRINT_LOG
-		std::cout << this->get_prompt() + ansi::red("CONTINUE ERROR") + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
-#endif
-		bypass = true;
+		return;
 	}
 
 #ifdef PRINT_LOG
-	if(!bypass)std::cout << this->get_prompt() + "sending images to " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+	std::cout << this->get_prompt() + "sending images to " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
-
-	if(!bypass) n = write(cli_sock, data.c_str(), data.length());
+	
+	n = write(cli_sock, data.c_str(), data.length());
 	if(n < 0){
 #ifdef PRINT_LOG
 		std::cout << this->get_prompt() + ansi::red("WRITE ERROR 2") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
+		return;
 	}
-
 }
 
 void navirice::ImageDistributionServer::server_connection_listener(){
 #ifdef PRINT_LOG
 	std::cout << this->get_prompt() << ansi::green("Connection listener launched!") << std::endl;
 #endif
+	// ENABLE TO PREVENt WRITE CRASH
+	signal (SIGPIPE, SIG_IGN);
 	while(true){
 		unsigned clilen;
 		struct sockaddr_in cli_addr;
