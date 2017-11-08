@@ -20,43 +20,48 @@ void navirice::ImageDistributionServer::send_images(int cli_sock, sockaddr_in cl
 	std::string data = this->images.SerializeAsString();
 	this->current_image_mutex.unlock();
 	ssize_t n;
-
+	bool bypass = false;
+	
 	ProtoImageCount count_msg;
 	count_msg.set_count(count);
 	count_msg.set_byte_count(data.length());
 	std::string count_msg_str = count_msg.SerializeAsString();
 	n = write(cli_sock, count_msg_str.c_str(), count_msg_str.length());
+
 	if(n < 0){
 #ifdef PRINT_LOG
-		std::cout << this->get_prompt() + ansi::red("WRITE ERROR") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+		std::cout << this->get_prompt() + ansi::red("WRITE ERROR 1") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
-		return;
+		bypass = true;
 	}
 
 	char read_buf[1024] = "";
-	n = read(cli_sock, read_buf, 1024);
-	if(n < 0){
+	if(!bypass) n = read(cli_sock, read_buf, 1024);
+	if(n < 0 && !bypass){
 #ifdef PRINT_LOG
 		std::cout << this->get_prompt() + ansi::red("READ ERROR") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
-		return;
+		bypass = true;
 	}
 
 	ProtoAcknowledge ack_msg;
 	ack_msg.ParseFromArray(read_buf, n);
 	if(ack_msg.state() != ProtoAcknowledge::CONTINUE){
-		return;
+#ifdef PRINT_LOG
+		std::cout << this->get_prompt() + ansi::red("CONTINUE ERROR") + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+#endif
+		bypass = true;
 	}
 
 #ifdef PRINT_LOG
-	std::cout << this->get_prompt() + "sending images to " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+	if(!bypass)std::cout << this->get_prompt() + "sending images to " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
 
-	n = write(cli_sock, data.c_str(), data.length());
+	if(!bypass) n = write(cli_sock, data.c_str(), data.length());
 	if(n < 0){
 #ifdef PRINT_LOG
-		std::cout << this->get_prompt() + ansi::red("WRITE ERROR") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
-#endif	
+		std::cout << this->get_prompt() + ansi::red("WRITE ERROR 2") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+#endif
 	}
 
 }
