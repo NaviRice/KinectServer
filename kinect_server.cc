@@ -97,7 +97,7 @@ int main(int argc, char* argv[]){
 					ir_frame->width,
 					ir_frame->height,
 					ir_frame->bytes_per_pixel,
-					navirice::ImageDataType::UBYTE,
+					navirice::ImageDataType::FLOAT,
 					ir_frame->data,
 					ir_frame->bytes_per_pixel * ir_frame->width * ir_frame->height
 					);	
