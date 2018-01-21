@@ -16,7 +16,10 @@ int main(){
 	
 	signal(SIGINT, finish_program);
 
-	while(keep_alive) usleep(100000);
+	while(keep_alive) {
+		server->set_new_images(NULL,NULL,NULL);
+		usleep(1000000);
+	}
 
 	return 0;
 }

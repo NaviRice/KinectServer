@@ -38,7 +38,8 @@ namespace navirice {
 			// UTIL
 			std::string get_prompt();
 			void handle_request(int cli_sock, sockaddr_in cli_addr);
-			void send_images(int cli_sock, sockaddr_in cli_addr);
+			void pipe_function(int cli_sock, sockaddr_in cli_addr);
+			void send_image(int cli_sock, sockaddr_in cli_addr);
 
 		public:
 			ImageDistributionServer(uint16_t port);

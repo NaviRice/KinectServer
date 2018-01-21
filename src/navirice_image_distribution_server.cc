@@ -10,63 +10,104 @@
 #include <clocale>
 
 void navirice::ImageDistributionServer::handle_request(int cli_sock, sockaddr_in cli_addr){
-	send_images(cli_sock, cli_addr);
+#ifdef PRINT_LOG
+    std::cout << this->get_prompt() + ansi::yellow("new connection: ") + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+#endif
+    pipe_function(cli_sock, cli_addr);
+#ifdef PRINT_LOG
+    std::cout << this->get_prompt() + ansi::red("Closing connection: ") + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+#endif
 	close(cli_sock);
 }
 
-void navirice::ImageDistributionServer::send_images(int cli_sock, sockaddr_in cli_addr){
-	this->current_image_mutex.lock();
-	uint64_t count = this->image_count;
-	std::string data = this->images.SerializeAsString();
-	this->current_image_mutex.unlock();
-	ssize_t n;
-	
-	ProtoImageCount count_msg;
-	count_msg.set_count(count);
-	count_msg.set_byte_count(data.length());
-	std::string count_msg_str = count_msg.SerializeAsString();
-	n = write(cli_sock, count_msg_str.c_str(), count_msg_str.length());
+void navirice::ImageDistributionServer::send_image(int cli_sock, sockaddr_in cli_addr) {
+    this->current_image_mutex.lock();
+    uint64_t count = this->image_count;
+    std::string data = this->images.SerializeAsString();
+    this->current_image_mutex.unlock();
+    ssize_t n;
 
-	if(n < 0){
-#ifdef PRINT_LOG
-		std::cout << this->get_prompt() + ansi::red("WRITE ERROR 1") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
-#endif
-		return;
-	}
+    ProtoImageCount count_msg;
+    count_msg.set_count(count);
+    count_msg.set_byte_count(data.length());
+    std::string count_msg_str = count_msg.SerializeAsString();
+    n = write(cli_sock, count_msg_str.c_str(), count_msg_str.length());
 
-	char read_buf[1024] = "";
-	n = read(cli_sock, read_buf, 1024);
-	if(n < 0){
+    if(n < 0){
 #ifdef PRINT_LOG
-		std::cout << this->get_prompt() + ansi::red("READ ERROR") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+        std::cout << this->get_prompt() + ansi::red("WRITE ERROR 1") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
-		return;
-	}
+        return;
+    }
 
-	ProtoAcknowledge ack_msg;
-	ack_msg.ParseFromArray(read_buf, n);
-	if(ack_msg.state() != ProtoAcknowledge::CONTINUE){
-		return;
-	}
+
+    char read_buf[1024] = "";
+    n = read(cli_sock, read_buf, 1024);
+    if(n < 0){
+#ifdef PRINT_LOG
+        std::cout << this->get_prompt() + ansi::red("READ ERROR") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+#endif
+        return;
+    }
+
+    ProtoAcknowledge ack_msg;
+    ack_msg.ParseFromArray(read_buf, n);
+    if(ack_msg.state() != ProtoAcknowledge::CONTINUE){
+        std::cout << this->get_prompt() + "received no_continue from: " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+        return;
+    }
 
 #ifdef PRINT_LOG
-	std::cout << this->get_prompt() + "sending images to " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+    std::cout << this->get_prompt() + "sending images to " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
-	
-	n = write(cli_sock, data.c_str(), data.length());
-	if(n < 0){
+
+    n = write(cli_sock, data.c_str(), data.length());
+    if(n < 0){
 #ifdef PRINT_LOG
-		std::cout << this->get_prompt() + ansi::red("WRITE ERROR 2") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+        std::cout << this->get_prompt() + ansi::red("WRITE ERROR 2") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
 #endif
-		return;
-	}
+        return;
+    }
+
+#ifdef PRINT_LOG
+    std::cout << this->get_prompt() + "sent " + std::to_string(n)+ " bytes to " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+#endif
+}
+
+void navirice::ImageDistributionServer::pipe_function(int cli_sock, sockaddr_in cli_addr){
+    while(true){
+        char read_buf[1024] = "";
+        ssize_t n = read(cli_sock, read_buf, 1024);
+        if(n < 0){
+#ifdef PRINT_LOG
+            std::cout << this->get_prompt() + ansi::red("READ ERROR - REQ") + " errno: " + std::strerror(errno) + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+#endif
+            return;
+        } else if (n == 0){
+            return;
+        } else {
+            ProtoRequest request;
+            request.ParseFromArray(read_buf, 1024);
+            auto req_val = request.state();
+
+            if(req_val == ProtoRequest::IMAGE){
+#ifdef PRINT_LOG
+                std::cout << this->get_prompt() + ansi::green("Image requested by") + " -- " + int_to_ip(cli_addr.sin_addr.s_addr) + ":" + std::to_string(cli_addr.sin_port) + "\n";
+#endif
+                send_image(cli_sock, cli_addr);
+            } else if(req_val == ProtoRequest::CAPTURE_SETTING){
+
+            }
+        }
+    }
+
 }
 
 void navirice::ImageDistributionServer::server_connection_listener(){
 #ifdef PRINT_LOG
 	std::cout << this->get_prompt() << ansi::green("Connection listener launched!") << std::endl;
 #endif
-	// ENABLE TO PREVENt WRITE CRASH
+	// ENABLE TO PREVENT WRITE CRASH
 	signal (SIGPIPE, SIG_IGN);
 	while(true){
 		unsigned clilen;
@@ -78,17 +119,20 @@ void navirice::ImageDistributionServer::server_connection_listener(){
 		timeout.tv_sec = 2;
 		timeout.tv_usec = 0;
 
-		if (cli_sock >= 0){	
+		if (cli_sock >= 0){
+            /*
 			if (setsockopt (cli_sock, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout)) >= 0){
 				if (setsockopt (cli_sock, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout)) >= 0){
-					std::thread worker(&ImageDistributionServer::handle_request, this, cli_sock, cli_addr);
-					worker.detach();
+
 				} else {
 					close(cli_sock);
 				}
+
 			} else {
 				close(cli_sock);
-			}
+			}*/
+            std::thread worker(&ImageDistributionServer::handle_request, this, cli_sock, cli_addr);
+            worker.detach();
 		}
 
 	}

@@ -4,9 +4,15 @@ Build
 bin
 __pycache__
 protobuf
+cmake-build*
+
+#IDE files
+.idea
 
 # Prerequisites
 *.d
+prerequisites/protobuf
+prerequisites/libfreenect2
 
 # Compiled Object files
 *.slo
