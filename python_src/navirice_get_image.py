@@ -53,13 +53,22 @@ class KinectClient:
             print("Requesting continue")
             continue_msg.state = navirice_image_pb2.ProtoAcknowledge.CONTINUE
             bytes_sent = self.s.send(continue_msg.SerializeToString())
-
+       	
         data = "".encode()
         b_size = count_obj.byte_count
-        t = self.s.recv(b_size)
-        print("received block of ", len(t), " bytes")
+        print("going to receive ", b_size, " bytes")
+
+        div_b_size = 1000000
+        total = 0
+        while b_size > div_b_size:
+            total+=div_b_size
+            t = self.s.recv(div_b_size, socket.MSG_WAITALL)
+            b_size-=div_b_size
+            data += t
+        total += b_size
+        t = self.s.recv(b_size, socket.MSG_WAITALL)
         data += t
-        print(len(data))
+        print("received total of ", len(data), " bytes ( sanity=", total, ")")
         img_set = navirice_image_pb2.ProtoImageSet()
         img_set.ParseFromString(data)
         self.last_count = count
