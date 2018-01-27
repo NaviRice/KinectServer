@@ -16,8 +16,18 @@ int main(){
 	
 	signal(SIGINT, finish_program);
 
+	auto settings = navirice::ServerSettings();
+
 	while(keep_alive) {
 		server->set_new_images(NULL,NULL,NULL);
+		if(!settings.is_equal(server->get_server_settings())){
+			settings = server->get_server_settings();
+			std::cout << "------------ SERVER SETTINGS CHANGED ----------------\n";
+			std::cout << "IR: " << settings.IR << std::endl;
+			std::cout << "RGB: " << settings.RGB << std::endl;
+			std::cout << "Depth: " << settings.Depth << std::endl;
+			std::cout << "-----------          END             ----------------\n";
+		}
 		usleep(1000000);
 	}
 

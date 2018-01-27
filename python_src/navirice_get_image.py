@@ -29,6 +29,23 @@ class KinectClient:
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.connect((self.host, self.port))
 
+    def navirice_capture_settings(self,  rgb, ir, depth):
+        print("---Requesting new settings...")
+        
+        settings = navirice_image_pb2.ProtoCaptureSetting()
+        settings.IR = ir
+        settings.RGB = rgb
+        settings.Depth = depth
+        settings.count = 1
+
+        request_msg = navirice_image_pb2.ProtoRequest()
+        request_msg.state = navirice_image_pb2.ProtoRequest.CAPTURE_SETTING
+        request_msg.count = 1
+        request_msg.capture_setting_value.CopyFrom(settings)
+        bytes_sent = self.s.send(request_msg.SerializeToString())
+        count_msg = self.s.recv(1024)
+ 
+    
     def navirice_get_image(self):
         print("---Requesting new image...")
         request_msg = navirice_image_pb2.ProtoRequest()
@@ -72,7 +89,7 @@ PORT = 29000        # The same port as used by the server
 kc = KinectClient(HOST, PORT)
 
 while(1):
-    time.sleep(0.01)
+    kc.navirice_capture_settings(True, True, True)
     img_set, last_count = kc.navirice_get_image()
     if img_set is not None:
         print("IMG#: ", img_set.count)

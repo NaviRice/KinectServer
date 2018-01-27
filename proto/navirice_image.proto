@@ -42,6 +42,7 @@ message ProtoCaptureSetting {
 	bool RGB = 1;
 	bool Depth = 2;
 	bool IR = 3;
+	uint64 count = 4;
 }
 
 message ProtoRequest {
@@ -51,6 +52,7 @@ message ProtoRequest {
 	}
 	ReqType state = 1;
 	uint64 count = 2;
+	ProtoCaptureSetting capture_setting_value = 3;
 }
 
 
