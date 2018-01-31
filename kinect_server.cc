@@ -17,8 +17,15 @@ bool keep_alive = true;
 
 navirice::ImageDistributionServer* server;
 
+int program_exit_counter = 0;
+
 void finish_program(int input){
 	keep_alive = false;
+	program_exit_counter++;
+	if(program_exit_counter >=3){
+		std::cout << "*****************************\nOVERRIDING FOR FORCED EXIT!" << std::endl;
+		exit(3);  
+	}
 }
 
 class IOCW;
@@ -56,57 +63,90 @@ int main(int argc, char* argv[]){
 	types |= libfreenect2::Frame::Color;
 	types |= libfreenect2::Frame::Ir | libfreenect2::Frame::Depth;
 	libfreenect2::SyncMultiFrameListener listener(types);
-	
+
 	kinect->setColorFrameListener(&listener);
-  kinect->setIrAndDepthFrameListener(&listener);	
-	kinect->startStreams(true, true);
+	kinect->setIrAndDepthFrameListener(&listener);	
 
 	server = new navirice::ImageDistributionServer(PORT);
+	auto settings = server->get_server_settings();
+	auto r = kinect->startStreams(true, true);
 
 	signal(SIGINT, finish_program);
 
 	while(keep_alive) {
+
+		auto new_settings = server->get_server_settings();
+		if(!settings.is_equal(new_settings)){
+			settings = new_settings;
+			std::cout << "------------ SERVER SETTINGS CHANGED ----------------\n";
+			std::cout << "IR: " << settings.IR << std::endl;
+			std::cout << "RGB: " << settings.RGB << std::endl;
+			std::cout << "Depth: " << settings.Depth << std::endl;
+			std::cout << "-----------          END             ----------------\n";
+//			kinect->stop();
+			kinect->startStreams(settings.RGB, settings.IR || settings.Depth);
+		}
+
 		auto start = std::chrono::steady_clock::now();
 		// ACQUIRE COLOR FRAME FROM KINECT
-		if(!listener.waitForNewFrame(frames, 10*1000)){
+		//std::cout << "WAITING FOR NEW FRAME" << std::endl;
+		if(!listener.waitForNewFrame(frames, 100)){
 			cout << navirice::ansi::red("FAILED TO ACQUIRE FRAME\n");
 		} else {
-			
-			libfreenect2::Frame *rgb_frame = frames[libfreenect2::Frame::Color];
-			navirice::Image* rgb_image = new navirice::ImageImpl(
-					rgb_frame->width,
-					rgb_frame->height,
-					rgb_frame->bytes_per_pixel,
-					navirice::ImageDataType::UBYTE,
-					rgb_frame->data,
-					rgb_frame->bytes_per_pixel * rgb_frame->width * rgb_frame->height
-					);
+			//std::cout << "ACQUIRED NEW FRAME" << std::endl;
 
-			libfreenect2::Frame *depth_frame = frames[libfreenect2::Frame::Depth];
-			navirice::Image* depth_image = new navirice::ImageImpl(
-					depth_frame->width,
-					depth_frame->height,
-					depth_frame->bytes_per_pixel,
-					navirice::ImageDataType::FLOAT,
-					depth_frame->data,
-					depth_frame->bytes_per_pixel * depth_frame->width * depth_frame->height
-					);
-		
-			libfreenect2::Frame *ir_frame = frames[libfreenect2::Frame::Ir];
-			navirice::Image* ir_image = new navirice::ImageImpl(
-					ir_frame->width,
-					ir_frame->height,
-					ir_frame->bytes_per_pixel,
-					navirice::ImageDataType::FLOAT,
-					ir_frame->data,
-					ir_frame->bytes_per_pixel * ir_frame->width * ir_frame->height
-					);	
-	
+			libfreenect2::Frame *rgb_frame = NULL;
+			libfreenect2::Frame *depth_frame = NULL;
+			libfreenect2::Frame *ir_frame = NULL;
+			navirice::Image* rgb_image = NULL;
+			navirice::Image* depth_image = NULL;
+			navirice::Image* ir_image = NULL;
+
+			if(settings.RGB){
+				rgb_frame = frames[libfreenect2::Frame::Color];
+				if(rgb_frame) rgb_image = new navirice::ImageImpl(
+						rgb_frame->width,
+						rgb_frame->height,
+						rgb_frame->bytes_per_pixel,
+						navirice::ImageDataType::UBYTE,
+						rgb_frame->data,
+						rgb_frame->bytes_per_pixel * rgb_frame->width * rgb_frame->height
+						);
+			}
+
+			//std::cout << "RGB SET" << std::endl;
+
+			if(settings.IR || settings.RGB){
+				depth_frame = frames[libfreenect2::Frame::Depth];
+				if(depth_frame) depth_image = new navirice::ImageImpl(
+						depth_frame->width,
+						depth_frame->height,
+						depth_frame->bytes_per_pixel,
+						navirice::ImageDataType::FLOAT,
+						depth_frame->data,
+						depth_frame->bytes_per_pixel * depth_frame->width * depth_frame->height
+						);
+
+				ir_frame = frames[libfreenect2::Frame::Ir];
+				if(ir_frame) ir_image = new navirice::ImageImpl(
+						ir_frame->width,
+						ir_frame->height,
+						ir_frame->bytes_per_pixel,
+						navirice::ImageDataType::FLOAT,
+						ir_frame->data,
+						ir_frame->bytes_per_pixel * ir_frame->width * ir_frame->height
+						);	
+			}
+			
+			//std::cout << "IR DEPTH SET" << std::endl;
+
 			server->set_new_images(rgb_image, ir_image, depth_image);
-	
-			delete rgb_image;
-			delete ir_image;
-			delete depth_image;
+
+			//std::cout << "NEW IMAGES SET" << std::endl;
+
+			if(rgb_image) delete rgb_image;
+			if(ir_image) delete ir_image;
+			if(depth_image) delete depth_image;
 
 			listener.release(frames);
 		}
