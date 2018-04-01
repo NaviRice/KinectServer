@@ -31,7 +31,75 @@ void finish_program(int input){
 class IOCW;
 
 
+int gridwidth = 32;
+int gridheight = 32;
+float cutoff = 0.5;
+//todo test intties
+float * ref_background = 0;
+int refwidth = 0;
+int refheight = 0;
 navirice::ubyte * griddata = 0;
+navirice::Image* bgref = 0;
+
+
+void setRefBG(libfreenect2::Frame * ref){
+	refwidth = ref->width;
+	refheight = ref->height;
+	if(ref_background) free(ref_background);
+	ref_background = (float*)malloc(refwidth * refheight * sizeof(float));
+	int x, y;
+	for(y = 0; y < refheight; y++){
+		float * inpline = &((float*)ref->data)[y*refwidth];
+		float * outline = &ref_background[y*refwidth];
+		for(x = 0; x < refwidth; x++){
+			//lolslow
+			inpline[x] = outline[x] - 50.0;
+		}
+	}
+}
+
+void calculateBG(libfreenect2::Frame * cur){
+	//todo optimizzle the fuck outta this
+	//todo SIMD SLAMMER!
+	int maxblack = (1.0-cutoff) * gridwidth * gridheight;
+	int maxwhite = (cutoff) * gridwidth * gridheight;
+	int x, y;
+	int sy = 0;
+	int slammajammay = refheight * gridheight;
+	int slammajammax = refwidth * gridwidth;
+	for(y =0; y < gridheight; y++){
+		int ey = slammajammay /y;
+		navirice::ubyte * outline = &griddata[y*gridwidth];
+		int sx = 0;
+		int dy = ey-sy;
+		for(x = 0; x < gridwidth; x++){
+			int ex = slammajammax /x;
+			int numinsec = (ex-sx) * dy;
+			int maxwhite = (cutoff) * (float)numinsec;
+			int maxblack = numinsec-maxwhite;
+
+			//todo be a retard here and unroll loop
+			int cx, cy;
+			int countwhite = 0;
+			int countblack = 0;
+			outline[x] = 0;
+			for(cy = sy; cy < ey; cy++){
+				float * curline = &((float*)cur->data)[cy * refwidth];
+				float * refline = &ref_background[cy * refwidth];
+				for(cx = sx; cx < ex; cx++){
+//					if(curline[cx] < refline[cx]) countwhite++;
+//					else countblack++;
+					int result = outline[cx] < refline[cx];
+					countwhite += result;
+					countblack += !result;
+				}
+				if(countwhite>=maxwhite){ outline[x] =1; break;}
+				if(countblack>= maxblack) break;
+			}
+		}
+		sy = ey;
+	}
+}
 
 int main(int argc, char* argv[]){
 
@@ -68,7 +136,7 @@ int main(int argc, char* argv[]){
 	libfreenect2::SyncMultiFrameListener listener(types);
 
 	kinect->setColorFrameListener(&listener);
-	kinect->setIrAndDepthFrameListener(&listener);	
+	kinect->setIrAndDepthFrameListener(&listener);
 
 	server = new navirice::ImageDistributionServer(PORT);
 	auto settings = server->get_server_settings();
@@ -92,7 +160,7 @@ int main(int argc, char* argv[]){
 
 			//allocate BGgrid if not already done
 			if(settings.BG){
-				if(!griddata) griddata = (navirice::ubyte*)malloc(32 * 32 *1);
+				if(!griddata) griddata = (navirice::ubyte*)malloc(gridwidth * gridheight);
 			}
 		}
 
@@ -152,15 +220,21 @@ int main(int argc, char* argv[]){
 						);
 			}
 			//todo
-			if(settings.BG){
-				bg_image = new navirice::ImageImpl(
-					32,
-					32,
-					1,
-					navirice::ImageDataType::UBYTE,
-					griddata,
-					32 * 32 * 1
-				);
+			if(settings.BG && depth_frame){
+				if(!ref_background){
+					setRefBG(depth_frame);
+				} else {
+					//time to generate the data!
+					calculateBG(depth_frame);
+					bg_image = new navirice::ImageImpl(
+						32,
+						32,
+						1,
+						navirice::ImageDataType::UBYTE,
+						griddata,
+						gridwidth * gridheight
+					);
+				}
 			}
 
 			//std::cout << "IR DEPTH SET" << std::endl;
