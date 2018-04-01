@@ -21,6 +21,7 @@ void navirice::ImageDistributionServer::handle_request(int cli_sock, sockaddr_in
 	settings.IR -= instance_setting.IR;
 	settings.RGB -= instance_setting.RGB;
 	settings.Depth -= instance_setting.Depth;
+	settings.BG -= instance_setting.BG;
 	settings_mutex.unlock();
 
 #ifdef PRINT_LOG
@@ -39,7 +40,7 @@ navirice::ServerSettings navirice::ImageDistributionServer::get_server_settings(
 }
 
 bool navirice::ServerSettings::is_equal(ServerSettings other){
-	return other.RGB == RGB && other.IR == IR && other.Depth == Depth;
+	return other.RGB == RGB && other.IR == IR && other.Depth == Depth && other.BG == BG;
 }
 
 void navirice::ImageDistributionServer::pipe_function(int cli_sock, sockaddr_in cli_addr, ServerSettings* instance_setting) {
@@ -81,14 +82,17 @@ void navirice::ImageDistributionServer::pipe_function(int cli_sock, sockaddr_in 
 				settings.IR -= instance_setting->IR;
 				settings.RGB -= instance_setting->RGB;
 				settings.Depth -= instance_setting->Depth;
+				settings.BG -= instance_setting->BG;
 
 				instance_setting->IR = proto_setting.ir();
 				instance_setting->RGB = proto_setting.rgb();
 				instance_setting->Depth = proto_setting.depth();
+				instance_setting->BG = proto_setting.bg();
 
 				settings.IR += instance_setting->IR;
 				settings.RGB += instance_setting->RGB;
 				settings.Depth += instance_setting->Depth;
+				settings.BG += instance_setting->BG;
 
 				settings_mutex.unlock();
 
