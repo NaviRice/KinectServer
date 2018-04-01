@@ -279,7 +279,7 @@ navirice::ProtoImage *naviriceImageToProtobuf(navirice::Image *img) {
 }
 
 void
-navirice::ImageDistributionServer::set_new_images(Image *new_color_image, Image *new_ir_image, Image *new_depth_image) {
+navirice::ImageDistributionServer::set_new_images(Image *new_color_image, Image *new_ir_image, Image *new_depth_image, Image *new_bg_image) {
 	this->current_image_mutex.lock();
 	this->image_count++;
 
@@ -289,6 +289,7 @@ navirice::ImageDistributionServer::set_new_images(Image *new_color_image, Image 
 	this->images.set_allocated_rgb(naviriceImageToProtobuf(new_color_image));
 	this->images.set_allocated_depth(naviriceImageToProtobuf(new_depth_image));
 	this->images.set_allocated_ir(naviriceImageToProtobuf(new_ir_image));
+	this->images.set_allocated_bg(naviriceImageToProtobuf(new_bg_image));
 #ifdef PRINT_LOG
 	std::cout << get_prompt() + "[" + ansi::yellow("setting new image " + std::to_string(image_count)) +
 		"] -> Buffer Size: " + std::to_string(this->images.ByteSize()) + "\n";

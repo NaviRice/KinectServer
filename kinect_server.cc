@@ -24,11 +24,14 @@ void finish_program(int input){
 	program_exit_counter++;
 	if(program_exit_counter >=3){
 		std::cout << "*****************************\nOVERRIDING FOR FORCED EXIT!" << std::endl;
-		exit(3);  
+		exit(3);
 	}
 }
 
 class IOCW;
+
+
+navirice::ubyte * griddata = 0;
 
 int main(int argc, char* argv[]){
 
@@ -82,9 +85,15 @@ int main(int argc, char* argv[]){
 			std::cout << "IR: " << settings.IR << std::endl;
 			std::cout << "RGB: " << settings.RGB << std::endl;
 			std::cout << "Depth: " << settings.Depth << std::endl;
+			std::cout << "BG: " << settings.BG << std::endl;
 			std::cout << "-----------          END             ----------------\n";
 //			kinect->stop();
-			kinect->startStreams(settings.RGB, settings.IR || settings.Depth);
+			kinect->startStreams(settings.RGB, settings.IR || settings.Depth || settings.BG);
+
+			//allocate BGgrid if not already done
+			if(settings.BG){
+				if(!griddata) griddata = (navirice::ubyte*)malloc(32 * 32 *1);
+			}
 		}
 
 		auto start = std::chrono::steady_clock::now();
@@ -101,6 +110,7 @@ int main(int argc, char* argv[]){
 			navirice::Image* rgb_image = NULL;
 			navirice::Image* depth_image = NULL;
 			navirice::Image* ir_image = NULL;
+			navirice::Image* bg_image = NULL;
 
 			if(settings.RGB){
 				rgb_frame = frames[libfreenect2::Frame::Color];
@@ -116,8 +126,12 @@ int main(int argc, char* argv[]){
 
 			//std::cout << "RGB SET" << std::endl;
 
-			if(settings.IR || settings.RGB){
+			if(settings.IR || settings.Depth || settings.BG){
 				depth_frame = frames[libfreenect2::Frame::Depth];
+				ir_frame = frames[libfreenect2::Frame::Ir];
+			}
+
+			if(settings.Depth){
 				if(depth_frame) depth_image = new navirice::ImageImpl(
 						depth_frame->width,
 						depth_frame->height,
@@ -126,8 +140,8 @@ int main(int argc, char* argv[]){
 						depth_frame->data,
 						depth_frame->bytes_per_pixel * depth_frame->width * depth_frame->height
 						);
-
-				ir_frame = frames[libfreenect2::Frame::Ir];
+			}
+			if(settings.IR){
 				if(ir_frame) ir_image = new navirice::ImageImpl(
 						ir_frame->width,
 						ir_frame->height,
@@ -135,18 +149,31 @@ int main(int argc, char* argv[]){
 						navirice::ImageDataType::FLOAT,
 						ir_frame->data,
 						ir_frame->bytes_per_pixel * ir_frame->width * ir_frame->height
-						);	
+						);
 			}
-			
+			//todo
+			if(settings.BG){
+				bg_image = new navirice::ImageImpl(
+					32,
+					32,
+					1,
+					navirice::ImageDataType::UBYTE,
+					griddata,
+					32 * 32 * 1
+				);
+			}
+
 			//std::cout << "IR DEPTH SET" << std::endl;
 
-			server->set_new_images(rgb_image, ir_image, depth_image);
+			//todo set new BG image
+			server->set_new_images(rgb_image, ir_image, depth_image, bg_image);
 
 			//std::cout << "NEW IMAGES SET" << std::endl;
 
 			if(rgb_image) delete rgb_image;
 			if(ir_image) delete ir_image;
 			if(depth_image) delete depth_image;
+			if(bg_image) delete bg_image;
 
 			listener.release(frames);
 		}
@@ -156,6 +183,7 @@ int main(int argc, char* argv[]){
 
 	// CLEANUP
 	delete server;
+	if(griddata) free(griddata);
 
 	cout << "SHUTTING DOWN KINECT!" << endl;
 	kinect->stop();

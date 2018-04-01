@@ -24,6 +24,7 @@ namespace navirice {
 			size_t RGB = 0;
 			size_t IR = 0;
 			size_t Depth = 0;
+			size_t BG = 0;
 
 			bool is_equal(ServerSettings other);
 	};
@@ -57,7 +58,7 @@ namespace navirice {
 			ImageDistributionServer(uint16_t port);
 			~ImageDistributionServer();
 			ServerSettings get_server_settings();
-			void set_new_images(Image* new_color_image, Image* new_ir_image, Image* new_depth_image);
+			void set_new_images(Image* new_color_image, Image* new_ir_image, Image* new_depth_image, Image* new_bg_image);
 	};
 
 }
