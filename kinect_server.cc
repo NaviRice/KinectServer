@@ -85,8 +85,8 @@ void genPatchList(int imgwidth, int imgheight, int stride, int patchsize){
 
 
 	int x, y;
-	for(y = ystart; y < yend; y++){
-		for(x = xstart; x < xend; x++){
+	for(y = 0; y < gridheight; y++){
+		for(x = 0; x < gridwidth; x++){
 			patch_t *mpatch = &patchlist[y*gridwidth + x];
 			//clipping
 			mpatch->sx = x > 0 ? x : 0;
@@ -162,6 +162,7 @@ void calculateBG(libfreenect2::Frame * cur){
 				wcnt += result;
 				bcnt += !result;
 			}
+			//only do this check every scanline so i dont do it every every pixel...otherwise it might make it even slower!
 			if(wcnt > p.whitecutoff){
 				griddata[i] = 1;
 				break;

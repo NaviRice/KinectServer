@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 PROJECT(NAVIRICE_CPP)
 
 SET(CMAKE_CXX_STANDARD 11)
-SET(SOURCE 
+SET(SOURCE
 	src/navirice_image_distribution_server.cc
 	src/navirice_image_impl.cc
 )
