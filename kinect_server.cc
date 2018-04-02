@@ -31,15 +31,77 @@ void finish_program(int input){
 class IOCW;
 
 
+typedef struct patch_s {
+	int sx;
+	int sy;
+	int ex;
+	int ey;
+	int whitecutoff;
+	int blackcutoff;
+} patch_t;
+
+
+patch_t * patchlist;
+
+
 int gridwidth = 256;
 int gridheight = 256;
 float cutoff = 0.5;
 //todo test intties
+navirice::ubyte * griddata = 0;
+
+
 float * ref_background = 0;
 int refwidth = 0;
 int refheight = 0;
 int refcounter = 0;
-navirice::ubyte * griddata = 0;
+
+
+void genPatchList(int imgwidth, int imgheight, int stride, int patchsize){
+	//hacky shit
+	int xstart = -20;
+	int ystart = -16;
+	int xend = imgwidth-20;
+	int yend = imgheight;
+	//find width and height
+	//hacky shit
+	int i;
+	int xcnt = 0;
+	for(i = xstart; i < xend; i+=stride){
+		xcnt++;
+	}
+	int ycnt = 0;
+	for(i = ystart; i < yend; i+=stride){
+		ycnt++;
+	}
+
+	gridwidth = xcnt;
+	gridheight = ycnt;
+	if(griddata)free(griddata);
+	griddata = (navirice::ubyte*)malloc(gridwidth * gridheight);
+	if(patchlist)free(patchlist);
+	patchlist = (patch_t *)malloc(gridwidth * gridheight * sizeof(patch_t));
+	//set up patch data
+
+
+	int x, y;
+	for(y = ystart; y < yend; y++){
+		for(x = xstart; x < xend; x++){
+			patch_t *mpatch = &patchlist[y*gridwidth + x];
+			//clipping
+			mpatch->sx = x > 0 ? x : 0;
+			mpatch->sy = y > 0 ? y : 0;
+			mpatch->ex = x+patchsize < imgwidth ? x+patchsize  : imgwidth;
+			mpatch->ex = y+patchsize < imgheight ? y+patchsize  : imgheight;
+			//calculate size and ratio
+			int pxcount = (mpatch->ex - mpatch->sx) * (mpatch->ey-mpatch->sy);
+			mpatch->whitecutoff = cutoff * pxcount;
+			mpatch->blackcutoff = pxcount - mpatch->whitecutoff;
+
+		}
+	}
+	//patchlist should be good to go now!
+}
 
 void resetRefBG(libfreenect2::Frame * ref){
 	if(ref_background) free(ref_background);
@@ -82,61 +144,30 @@ void updateRefBGNoise(libfreenect2::Frame * ref){
 }
 
 void calculateBG(libfreenect2::Frame * cur){
-	//todo optimizzle the fuck outta this
-	//todo SIMD SLAMMER!
-/*
-	printf("CMON AND SLAM2\n");
-	int x, y;
-	int sy = 0;
-	int slammajammay = refheight * gridheight;
-	int slammajammax = refwidth * gridwidth;
-	for(y =0; y < gridheight; y++){
-		int ey = (y*slammajammay)/gridheight;
-		navirice::ubyte * outline = &griddata[y*gridwidth];
-		int sx = 0;
-		int dy = ey-sy;
-		for(x = 0; x < gridwidth; x++){
-			int ex = (x*slammajammax)/gridheight;
-			int numinsec = (ex-sx) * dy;
-			int maxwhite = (int)((cutoff) * numinsec);
-			int maxblack = numinsec-maxwhite;
-
-			//todo be a retard here and unroll loop
-			int cx, cy;
-			int countwhite = 0;
-			int countblack = 0;
-			outline[x] = 0;
-			for(cy = sy; cy < ey; cy++){
-///				float * curline = &((float*)cur->data)[cy * refwidth];
-//				float * refline = &ref_background[cy * refwidth];
-				for(cx = sx; cx < ex; cx++){
-//					int result = (outline[cx] < refline[cx]);
-//					countwhite += result;
-//					countblack += !result;
-				}
-				if(countwhite>= maxwhite){ outline[x] =1; break;}
-				if(countblack>= maxblack) break;
+	int mi = gridwidth * gridheight;
+	int i;
+	float *cdata = (float*)cur->data;
+	for(i = 0; i < mi; i++){
+		patch_t p = patchlist[i];
+		griddata[i] = 0;
+		int x, y;
+		int wcnt = 0;
+		int bcnt = 0;
+		for(y = p.sy; y < p.ey; y++){
+			float * inpline = &(cdata[y*refwidth]);
+			float * refline = &(ref_background[y*refwidth]);
+			for(x = p.sx; x < p.ex; x++){
+				float inpix = inpline[x];
+				int result = (inpix < refline[x]) & (inpix > 5.0);
+				wcnt += result;
+				bcnt += !result;
 			}
-		}
-		sy = ey;
-	}
-*/
-	int x, y;
-	for(y = 0; y < gridheight; y++){
-		for(x = 0; x < gridwidth; x++){
-			griddata[x + y*gridwidth] = 0;//rand()%256;
-		}
-	}
-	for(y = 0; y < refheight; y++){
-		float * inpline = &((float*)cur->data)[y*refwidth];
-		float * refline = &ref_background[y*refwidth];
-		for(x = 0; x < refwidth; x++){
-			int result = (inpline[x] < refline[x]) & (inpline[x] > 5.0)
-//(inpline[x] < refline[x]-50.0)
-//|(inpline[x] > refline[x]+50.0)
-;
-			griddata[(x*gridwidth/refwidth)+(y*gridheight/refheight)*gridwidth] += result * 32;
-//			griddata[(x*gridwidth/refwidth)+(y*gridheight/refheight)*gridwidth] = inpline[x]/256;
+			if(wcnt > p.whitecutoff){
+				griddata[i] = 1;
+				break;
+			} else if(bcnt > p.blackcutoff){
+				break;
+			}
 		}
 	}
 }
@@ -198,10 +229,6 @@ int main(int argc, char* argv[]){
 //			kinect->stop();
 			kinect->startStreams(settings.RGB, settings.IR || settings.Depth || settings.BG);
 
-			//allocate BGgrid if not already done
-			if(settings.BG){
-				if(!griddata) griddata = (navirice::ubyte*)malloc(gridwidth * gridheight);
-			}
 		}
 
 		auto start = std::chrono::steady_clock::now();
@@ -261,6 +288,8 @@ int main(int argc, char* argv[]){
 			}
 			//todo
 			if(settings.BG && depth_frame){
+				if(!griddata || !patchlist) genPatchList(depth_frame->width, depth_frame->height, 16, 48);
+
 				if(!ref_background){
 					resetRefBG(depth_frame);
 					printf("reset ref\n");
