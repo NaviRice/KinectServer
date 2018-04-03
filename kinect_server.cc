@@ -44,9 +44,9 @@ typedef struct patch_s {
 patch_t * patchlist;
 
 
-int gridwidth = 256;
-int gridheight = 256;
-float cutoff = 0.5;
+int gridwidth = 32;
+int gridheight = 32;
+float cutoff = 0.1;
 //todo test intties
 navirice::ubyte * griddata = 0;
 
@@ -75,6 +75,8 @@ void genPatchList(int imgwidth, int imgheight, int stride, int patchsize){
 		ycnt++;
 	}
 
+	printf("Gridsime %i %i\n", xcnt, ycnt);
+	printf("imgsime %i %i\n", imgwidth, imgheight);
 	gridwidth = xcnt;
 	gridheight = ycnt;
 	if(griddata)free(griddata);
@@ -85,20 +87,23 @@ void genPatchList(int imgwidth, int imgheight, int stride, int patchsize){
 
 
 	int x, y;
+	int ychop = ystart;
 	for(y = 0; y < gridheight; y++){
+		int xchop = xstart;
 		for(x = 0; x < gridwidth; x++){
 			patch_t *mpatch = &patchlist[y*gridwidth + x];
 			//clipping
-			mpatch->sx = x > 0 ? x : 0;
+			mpatch->sx = xchop > 0 ? xchop : 0;
 			mpatch->sy = y > 0 ? y : 0;
-			mpatch->ex = x+patchsize < imgwidth ? x+patchsize  : imgwidth;
-			mpatch->ex = y+patchsize < imgheight ? y+patchsize  : imgheight;
+			mpatch->ex = xchop+patchsize < imgwidth ? xchop+patchsize  : imgwidth;
+			mpatch->ey = ychop+patchsize < imgheight ? ychop+patchsize  : imgheight;
 			//calculate size and ratio
 			int pxcount = (mpatch->ex - mpatch->sx) * (mpatch->ey-mpatch->sy);
 			mpatch->whitecutoff = cutoff * pxcount;
 			mpatch->blackcutoff = pxcount - mpatch->whitecutoff;
-
+			xchop += stride;
 		}
+		ychop += stride;
 	}
 	//patchlist should be good to go now!
 }
@@ -295,9 +300,9 @@ int main(int argc, char* argv[]){
 					resetRefBG(depth_frame);
 					printf("reset ref\n");
 				}
-				if(refcounter < 100){
+				if(refcounter < 10){
 					updateRefBG(depth_frame);
-				} else if(refcounter == 100){
+				} else if(refcounter == 10){
 					printf("CAlibradasda\n");
 					printf("CAlibradasda\n");
 					printf("CAlibradasda\n");
