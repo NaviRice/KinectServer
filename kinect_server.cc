@@ -94,7 +94,7 @@ void genPatchList(int imgwidth, int imgheight, int stride, int patchsize){
 			patch_t *mpatch = &patchlist[y*gridwidth + x];
 			//clipping
 			mpatch->sx = xchop > 0 ? xchop : 0;
-			mpatch->sy = y > 0 ? y : 0;
+			mpatch->sy = ychop > 0 ? ychop : 0;
 			mpatch->ex = xchop+patchsize < imgwidth ? xchop+patchsize  : imgwidth;
 			mpatch->ey = ychop+patchsize < imgheight ? ychop+patchsize  : imgheight;
 			//calculate size and ratio
@@ -158,10 +158,10 @@ void calculateBG(libfreenect2::Frame * cur){
 		int x, y;
 		int wcnt = 0;
 		int bcnt = 0;
-		for(y = p.sy; y < p.ey; y++){
+		for(y = p.sy; y < p.ey; y+=2){
 			float * inpline = &(cdata[y*refwidth]);
 			float * refline = &(ref_background[y*refwidth]);
-			for(x = p.sx; x < p.ex; x++){
+			for(x = p.sx; x < p.ex; x+=2){
 				float inpix = inpline[x];
 				int result = (inpix < refline[x]) & (inpix > 5.0);
 				wcnt += result;
